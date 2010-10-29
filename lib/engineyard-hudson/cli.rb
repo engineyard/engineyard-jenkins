@@ -5,7 +5,16 @@ module Engineyard
     class CLI < Thor
       map "-v" => :version, "--version" => :version, "-h" => :help, "--help" => :help
       
-      desc "server", "Setup a Hudson CI server on AppCloud"
+      desc "install PROJECT_PATH", "Install Hudson node/slave recipes into your project."
+      method_option :environment, :type => :string, :aliases => %w(-e),
+        :desc => "Environment in which to deploy this application", :required => true
+      method_option :account, :type => :string, :aliases => %w(-c),
+        :desc => "Name of the account you want to deploy in"
+      def install(project_path)
+        shell.say "Coming soon!", :green
+      end
+      
+      desc "server", "Setup a Hudson CI server on AppCloud."
       method_option :environment, :type => :string, :aliases => %w(-e),
         :desc => "Environment in which to deploy this application", :required => true
       method_option :account, :type => :string, :aliases => %w(-c),
