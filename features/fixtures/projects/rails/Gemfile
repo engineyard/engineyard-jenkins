@@ -1,0 +1,3 @@
+source "http://rubygems.rb"
+
+gem "rake"
