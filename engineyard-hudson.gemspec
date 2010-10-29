@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "engineyard-hudson/version"
+require "engineyard-hudson"
 
 Gem::Specification.new do |s|
   s.name        = "engineyard-hudson"
   s.version     = Engineyard::Hudson::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
-  s.homepage    = "http://rubygems.org/gems/engineyard-hudson"
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.authors     = ["Dr Nic Williams"]
+  s.email       = ["drnicwilliams@gmail.com"]
+  s.homepage    = "http://github.com/engineyard/engineyard-hudson"
+  s.summary     = %q{Easier to do CI than not to. Use Hudson CI on Engine Yard AppCloud.}
+  s.description = %q{Either create a Hudson CI server; or use your Engine Yard AppCloud environments for Hudson slaves.}
 
   s.rubyforge_project = "engineyard-hudson"
 

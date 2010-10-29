@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+$:.unshift(File.dirname(__FILE__) + "/../lib")
+
+require 'engineyard-hudson'
+require 'engineyard-hudson/cli'
+
+Engineyard::Hudson::CLI.start
