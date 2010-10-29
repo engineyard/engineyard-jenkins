@@ -11,12 +11,23 @@ module Engineyard
       method_option :account, :type => :string, :aliases => %w(-c),
         :desc => "Name of the account you want to deploy in"
       def server
-        
+        shell.say "Coming soon!", :green
       end
       
       desc "version", "show version information"
       def version
         shell.say Engineyard::Hudson::VERSION
+      end
+
+      private
+      def display(text)
+        shell.say text
+        exit
+      end
+
+      def error(text)
+        shell.say "ERROR: #{text}", :red
+        exit
       end
     end
   end
