@@ -39,7 +39,7 @@ end
 When /^I run project executable "(.*)" with arguments "(.*)"/ do |executable, arguments|
   @stdout = File.expand_path(File.join(@tmp_root, "executable.out"))
   in_project_folder do
-    system "ruby #{executable.inspect} #{arguments} > #{@stdout.inspect} 2> #{@stdout.inspect}"
+    system "ruby -rubygems #{executable.inspect} #{arguments} > #{@stdout.inspect} 2> #{@stdout.inspect}"
   end
 end
 
@@ -47,14 +47,14 @@ When /^I run local executable "(.*)" with arguments "(.*)"/ do |executable, argu
   @stdout = File.expand_path(File.join(@tmp_root, "executable.out"))
   executable = File.expand_path(File.join(File.dirname(__FILE__), "/../../bin", executable))
   in_project_folder do
-    system "ruby #{executable.inspect} #{arguments} > #{@stdout.inspect} 2> #{@stdout.inspect}"
+    system "ruby -rubygems #{executable.inspect} #{arguments} > #{@stdout.inspect} 2> #{@stdout.inspect}"
   end
 end
 
 When /^I invoke task "rake (.*)"/ do |task|
   @stdout = File.expand_path(File.join(@tmp_root, "tests.out"))
   in_project_folder do
-    system "rake #{task} --trace > #{@stdout.inspect} 2> #{@stdout.inspect}"
+    system "bundle exec rake #{task} --trace > #{@stdout.inspect} 2> #{@stdout.inspect}"
   end
 end
 
