@@ -23,11 +23,7 @@ module Engineyard
         file       = "cookbooks/main/recipes/default.rb"
         enable_cmd = "\nrequire_recipe 'hudson_slave'"
         if File.exists?(file_path = File.join(destination_root, file))
-          if File.read(file_path).index(enable_cmd)
-            say "        skip  ", :blue; say file
-          else
-            append_file file, enable_cmd
-          end
+          append_file file, enable_cmd
         else
           create_file file, enable_cmd
         end
