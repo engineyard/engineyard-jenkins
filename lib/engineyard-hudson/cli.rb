@@ -3,8 +3,7 @@ require 'thor'
 module Engineyard
   module Hudson
     class CLI < Thor
-      include Thor::Actions
-      
+
       def self.common_options
         method_option :environment, :type => :string, :aliases => %w(-e), 
           :desc => "Environment in which to deploy this application", :required => true
@@ -15,7 +14,8 @@ module Engineyard
       desc "install PROJECT_PATH", "Install Hudson node/slave recipes into your project."
       common_options
       def install(project_path)
-        shell.say "Coming soon!", :green
+        require 'engineyard-hudson/cli/install'
+        Engineyard::Hudson::Install.start(ARGV[1..-1])
       end
       
       desc "server", "Setup a Hudson CI server on AppCloud."
