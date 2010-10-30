@@ -1,10 +1,8 @@
 # -*- encoding: utf-8 -*-
-$:.unshift File.expand_path(File.dirname(__FILE__) + "/lib")
-require "engineyard-hudson"
 
 Gem::Specification.new do |s|
   s.name        = "engineyard-hudson"
-  s.version     = Engineyard::Hudson::VERSION
+  s.version     = '0.0.1'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Dr Nic Williams"]
   s.email       = ["drnicwilliams@gmail.com"]
