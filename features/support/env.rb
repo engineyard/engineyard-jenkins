@@ -1,5 +1,5 @@
-$:.unshift(File.expand_path(File.dirname(__FILE__) + "/../../lib"))
-require "engineyard-hudson"
+$:.unshift(File.expand_path(File.dirname(__FILE__) + '/../../lib'))
+require 'engineyard-hudson'
 require 'bundler/setup'
 
 Before do
