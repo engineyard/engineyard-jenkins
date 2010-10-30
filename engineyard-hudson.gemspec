@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency("thor", ["~> 0.14.3"])
+  # s.add_dependency("engineyard", ["~> 1.3.3"])
+  # s.add_dependency("hudson", ["~> 0.3.0.beta"])
 
   s.add_development_dependency("rake", ["~> 0.8.7"])
   s.add_development_dependency("cucumber", ["~> 0.9.0"])
