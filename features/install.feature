@@ -9,6 +9,7 @@ Feature: Managing a rails project as a Hudson CI job on AppCloud
     Then file "cookbooks/hudson_slave/attributes/default.rb" is created
     And file "cookbooks/hudson_slave/recipes/default.rb" is created
     And file "cookbooks/main/recipes/default.rb" is created
+    And file "cookbooks/main/libraries/ruby_block.rb" is created
     And I should see "Finally, edit cookbooks/hudson_slave/attributes/default.rb"
   
   Scenario: Setup project with existing cookbooks as a slave for Hudson

@@ -11,6 +11,13 @@ module Engineyard
         File.join(File.dirname(__FILE__), "install", "templates")
       end
       
+      def install_cookbooks
+        file       = "cookbooks/main/recipes/default.rb"
+        unless File.exists?(File.join(destination_root, "cookbooks/main/recipes/default.rb"))
+          directory "cookbooks"
+        end
+      end
+      
       def attributes
         template "attributes.rb.erb", "cookbooks/hudson_slave/attributes/default.rb"
       end

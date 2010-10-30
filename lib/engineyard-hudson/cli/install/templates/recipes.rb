@@ -57,7 +57,7 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /_(ci|hud
   ruby_block "tell-master-about-new-jobs" do
     block do
       begin
-        job_names   = Hudson::Api.job_names
+        job_names   = Hudson::Api.summary["jobs"].map {|job| job["name"]} # TODO Hudson::Api.job_names
         app_names   = node[:applications].keys
         apps_to_add = app_names - job_names
 
