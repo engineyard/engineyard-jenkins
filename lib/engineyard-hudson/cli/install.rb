@@ -36,9 +36,26 @@ module Engineyard
         end
       end
       
+      # README:
+      #   Finally:
+      #   * edit cookbooks/hudson_slave/attributes/default.rb as necessary
+      #   * run: ey recipes upload
+      #   * run: ey recipes apply
+      #   * Boot your environment if not already booted.
+      #   When the recipe completes, your project will commence its first build on Hudson CI.
       def readme
-        shell.say ""
-        shell.say "Finally, edit "; shell.say "cookbooks/hudson_slave/attributes/default.rb", :green
+        say ""
+        say "Finally:"
+        say "* edit "; say "cookbooks/hudson_slave/attributes/default.rb ", :yellow; say "as necessary."
+        say "* run: "; say "ey recipes upload", :green
+        say "* run: "; say "ey recipes apply", :green
+        say "* "; say "Boot your environment ", :yellow; say "if not already booted."
+        say "When the recipe completes, your project will commence its first build on Hudson CI."
+      end
+      
+      private
+      def say(msg, color = nil)
+        color ? shell.say(msg, color) : shell.say(msg)
       end
     end
   end
