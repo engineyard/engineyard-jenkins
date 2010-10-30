@@ -12,14 +12,12 @@ module Engineyard
       end
       
       desc "install PROJECT_PATH", "Install Hudson node/slave recipes into your project."
-      common_options
       def install(project_path)
         require 'engineyard-hudson/cli/install'
         Engineyard::Hudson::Install.start(ARGV[1..-1])
       end
       
       desc "server", "Setup a Hudson CI server on AppCloud."
-      common_options
       def server
         shell.say "Coming soon!", :green
       end

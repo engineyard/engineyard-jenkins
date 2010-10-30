@@ -6,10 +6,6 @@ module Engineyard
       include Thor::Actions
       
       argument :project_path
-      class_option :environment, :type => :string, :aliases => %w(-e), 
-        :desc => "Environment in which to deploy this application", :required => true
-      class_option :account, :type => :string, :aliases => %w(-c), 
-        :desc => "Name of the account you want to deploy in"
       
       def self.source_root
         File.join(File.dirname(__FILE__), "install", "templates")
