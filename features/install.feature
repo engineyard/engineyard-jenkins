@@ -23,8 +23,8 @@ Feature: Managing a rails project as a Hudson CI job on AppCloud
       
       Finally:
       * edit cookbooks/hudson_slave/attributes/default.rb as necessary.
-      * run: ey recipes upload
-      * run: ey recipes apply
+      * run: ey recipes upload # use --environment(-e) & --account(-c)
+      * run: ey recipes apply  #   to select environment
       * Boot your environment if not already booted.
       When the recipe completes, your project will commence its first build on Hudson CI.
       """
@@ -47,8 +47,8 @@ Feature: Managing a rails project as a Hudson CI job on AppCloud
 
       Finally:
       * edit cookbooks/hudson_slave/attributes/default.rb as necessary.
-      * run: ey recipes upload
-      * run: ey recipes apply
+      * run: ey recipes upload # use --environment(-e) & --account(-c)
+      * run: ey recipes apply  #   to select environment
       * Boot your environment if not already booted.
       When the recipe completes, your project will commence its first build on Hudson CI.
       """

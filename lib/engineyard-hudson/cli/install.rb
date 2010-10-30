@@ -47,8 +47,8 @@ module Engineyard
         say ""
         say "Finally:"
         say "* edit "; say "cookbooks/hudson_slave/attributes/default.rb ", :yellow; say "as necessary."
-        say "* run: "; say "ey recipes upload", :green
-        say "* run: "; say "ey recipes apply", :green
+        say "* run: "; say "ey recipes upload ", :green; say "# use --environment(-e) & --account(-c)"
+        say "* run: "; say "ey recipes apply  ", :green; say "#   to select environment"
         say "* "; say "Boot your environment ", :yellow; say "if not already booted."
         say "When the recipe completes, your project will commence its first build on Hudson CI."
       end
