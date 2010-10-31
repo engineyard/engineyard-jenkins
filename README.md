@@ -24,9 +24,11 @@ You **do not** need to be familiar with custom chef recipes. Just follow the sim
 
 In the very first release of `engineyard-hudson`:
 
-* there is no support for authentication/authorization of Hudson CI.
-* git URLs are converted to public `git://` urls on Hudson; until deploy key support is added
-* no mail server configured for Hudson CI build failure notifications
+* There is no support for authentication/authorization of Hudson CI.
+* Git URLs are converted to public `git://` urls on Hudson; until deploy key support is added.
+* No mail server configured for Hudson CI build failure notifications.
+* The initial steps for setting up and testing your Rails app are determined by the [hudson](http://github.com/cowboyd/hudson.rb) CLI project. Currently they assume you use bundler and "rake default" runs all your tests. Change them via Hudson CI.
+* It is not using the MySQL database provisioned on your AppCloud instance just yet.
 
 That is, its really only useful - at this very "alpha" instant in time - to Open Source Rails projects. But that's just me being brutally honest.
 
