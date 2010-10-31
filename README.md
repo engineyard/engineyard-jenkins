@@ -10,6 +10,10 @@ It's a nightmare. It was for me. [Hudson CI](http://hudson-ci.org/), `engineyard
 
     gem install engineyard-hudson
 
+You might also like the `hudson` CLI to play with your Hudson CI from the command line:
+
+    gem install hudson
+
 ## Assumptions
 
 It is assumed you are familiar with the `engineyard` CLI gem.
@@ -46,7 +50,7 @@ After a couple manual steps, you will have your applications tests running.
     * run: ey recipes apply  #   to select environment
     * Boot your environment if not already booted.
 
-Done! Either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
+Do those steps and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
 
 ## Automatically triggering job builds
 
@@ -61,6 +65,10 @@ It is often desirable to have your SCM trigger Hudson CI to run your job build w
 * Click "Post-Receive URLs"
 * Enter the URL `http://HUDSON-CI-URL/job/APP-NAME/build`
 * Click "Update Settings"
+
+And here's a picture.
+
+<img src="http://img.skitch.com/20101031-d5wrc7hysrahihqr9k53xgxi1t.png" style="width: 100%;">
 
 You can also use the "Test Hook" link to test this is wired up correctly.
 
