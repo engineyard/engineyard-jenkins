@@ -50,6 +50,8 @@ Just a few steps and you will have your own Hudson CI:
 
 Do those steps and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
 
+Note: the Hudson CI environment in Engine Yard AppCloud must be a single instance "solo".
+
 ### Hosting elsewhere
 
 You need the following information about your Hudson CI:
@@ -72,6 +74,13 @@ Just a few steps and you will have your applications' tests running.
     * Boot your environment if not already booted.
 
 Do those steps and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
+
+### Conventions/Requirements
+
+* Do not use your production environment as your Hudson CI slave. There are no guarantees what will happen. I expect bad things.
+* You must name your CI environment with a suffix of `_ci` or `_hudson_slave`.
+* You should not name any other environments with a suffix of `_ci` or `_hudson_slave`; lest they offer themselves to your Hudson CI as slave nodes.
+* Keep your production and CI environments exactly the same. Use the same Ruby implementation/version, same database, and include the same RubyGems and Unix packages. Why? This is the entire point of the exercise: to run your CI tests in the same environment as your production application runs.
 
 ### What happens?
 
