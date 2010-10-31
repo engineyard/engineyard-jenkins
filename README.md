@@ -73,6 +73,37 @@ Just a few steps and you will have your applications' tests running.
 
 Do those steps and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
 
+### What happens?
+
+When you boot your Engine Yard AppCloud CI environments, each resulting EC2 instance executes a special "hudson_slave" recipe (see `cookbooks/hudson_slave/recipes/default.rb` in your project). This does three things:
+
+* Adds this instance to your Hudson CI server as a slave
+* Adds each Rails/Rack application for the AppCloud environment into your Hudson CI as a "job".
+* Commences the first build of any newly added job.
+
+If your CI instances have already been booted and you re-apply the recipes over and over (`ey recipes apply`), nothing good or bad will happen. The instances will stay registered as slaves and the applications will stay registered as Hudson CI jobs.
+
+If a new application is on the instance, then a new job will be created on Hudson CI.
+
+To delete a job from Hudson CI, you should also delete it from your AppCloud CI environment to ensure it isn't re-added the next time you re-apply or re-build or terminate/boot your CI environment. (To delete a job, use the Hudson CI UI or `hudson remove APP-NAME` from the CLI.)
+
+In essence, to add new Rails/Rack applications into your Hudson CI server you:
+
+* Add them to one of your Engine Yard AppCloud CI environments (the one that matches the production environment where the application will be hosted)
+* Rebuild the environment or re-apply the custom recipes (`ey recipes apply`)
+
+### Can I add applications/jobs to Hudson CI other ways?
+
+Yes. There are three simple ways to get Hudson CI to run tests for your application ("create a job to run builds"). Above is the first: all "applications" on the Engine Yard AppCloud CI environment will automatically become Hudson CI jobs. The alternates are:
+
+2. Use the `hudson create .` command from the [hudson](http://github.com/cowboyd/hudson.rb) CLI. 
+
+Pass the `--assigned_node xyz` flag to make the project's test be executed on a specific slave node. "xyz" is the name of another application on your AppCloud account; your tests will be executed on the same instance, with the same version of Ruby etc.
+
+3. Use the Hudson CI UI to create a new job. As above, you can make sure the tests are run on a specific Engine Yard AppCloud instance by setting the assigned node label to be the same as another AppCloud application in your account that is being tested.
+
+Specifically, Hudson CI uses "labels" to match jobs to slaves. A common example usage is to label a Windows slave as "windows". A job could then be restricted to only running on slaves with label "windows". We are using this same mechanism.
+
 ## Automatically triggering job builds
 
 In Hudson CI, a "job" is one of your projects. Each time it runs your tests, it is called a "build".
