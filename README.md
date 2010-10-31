@@ -27,6 +27,8 @@ In the very first release of `engineyard-hudson`:
 * there is no support for authentication/authorization of Hudson CI.
 * git URLs are converted to public `git://` urls on Hudson; until deploy key support is added
 
+That is, its really only useful - at this very "alpha" instant in time - to Open Source Rails projects. But that's just me being brutally honest.
+
 ## Hosting Hudson CI on Engine Yard AppCloud
 
 Instructions *coming soon*.
