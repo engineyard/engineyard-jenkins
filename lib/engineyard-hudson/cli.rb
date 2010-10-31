@@ -1,4 +1,5 @@
 require 'thor'
+require 'engineyard-hudson/thor-ext/actions/directory'
 
 module Engineyard
   module Hudson
