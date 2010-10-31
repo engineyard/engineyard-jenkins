@@ -16,7 +16,7 @@ You might also like the `hudson` CLI to play with your Hudson CI from the comman
 
 ## Assumptions
 
-It is assumed you are familiar with the `engineyard` CLI gem.
+It is assumed you are familiar with the [engineyard](http://github.com/engineyard/engineyard) CLI gem.
 
 You **do not** need to be familiar with custom chef recipes. Just follow the simple commands. Easy peasy.
 
