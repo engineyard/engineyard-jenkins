@@ -19,7 +19,7 @@ module Engineyard
       end
       
       def attributes
-        template "attributes.rb.erb", "cookbooks/hudson_slave/attributes/default.rb"
+        template "attributes.rb.tt", "cookbooks/hudson_slave/attributes/default.rb"
       end
       
       def recipe
@@ -36,13 +36,6 @@ module Engineyard
         end
       end
       
-      # README:
-      #   Finally:
-      #   * edit cookbooks/hudson_slave/attributes/default.rb as necessary
-      #   * run: ey recipes upload
-      #   * run: ey recipes apply
-      #   * Boot your environment if not already booted.
-      #   When the recipe completes, your project will commence its first build on Hudson CI.
       def readme
         say ""
         say "Finally:"

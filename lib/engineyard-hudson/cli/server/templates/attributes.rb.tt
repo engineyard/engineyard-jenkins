@@ -1,0 +1,3 @@
+hudson_master({
+  :plugins => %w[<%= @plugins.join(" ") %>]
+})

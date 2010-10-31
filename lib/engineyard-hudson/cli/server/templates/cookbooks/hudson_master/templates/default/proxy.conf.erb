@@ -1,0 +1,20 @@
+# Nginx config for Hudson CI behind a virtual host
+# TODO: Add SSL support as per http://gist.github.com/460906
+
+upstream hudson {
+  server localhost:<%= @port %>;
+}
+
+server {
+  listen 80 default;
+  server_name hudson.example.com;
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header Host $http_host;
+    proxy_next_upstream error;
+    proxy_pass http://hudson;
+  }
+}

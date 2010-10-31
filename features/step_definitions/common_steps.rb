@@ -85,6 +85,14 @@ Then /^file "(.*)" contents (does|does not) match \/(.*)\// do |file, does, rege
   end
 end
 
+Then /^file "([^"]*)" contains "([^"]*)"$/ do |file, text|
+  in_project_folder do
+    actual_output = File.read(file)
+    actual_output.should contain(text)
+  end
+end
+
+
 Then /gem file "(.*)" and generated file "(.*)" should be the same/ do |gem_file, project_file|
   File.exists?(gem_file).should be_true
   File.exists?(project_file).should be_true

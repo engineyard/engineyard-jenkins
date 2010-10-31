@@ -20,7 +20,8 @@ module Engineyard
       
       desc "server", "Setup a Hudson CI server on AppCloud."
       def server
-        shell.say "Coming soon!", :green
+        require 'engineyard-hudson/cli/server'
+        Engineyard::Hudson::Server.start(ARGV[1..-1])
       end
       
       desc "version", "show version information"
