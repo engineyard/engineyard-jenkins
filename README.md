@@ -20,12 +20,13 @@ It is assumed you are familiar with the [engineyard](http://github.com/engineyar
 
 You **do not** need to be familiar with custom chef recipes. Just follow the simple commands. Easy peasy.
 
-## Warning
+## Warning (aka TODO list)
 
 In the very first release of `engineyard-hudson`:
 
 * there is no support for authentication/authorization of Hudson CI.
 * git URLs are converted to public `git://` urls on Hudson; until deploy key support is added
+* no mail server configured for Hudson CI build failure notifications
 
 That is, its really only useful - at this very "alpha" instant in time - to Open Source Rails projects. But that's just me being brutally honest.
 
