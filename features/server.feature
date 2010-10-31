@@ -3,7 +3,7 @@ Feature: Managing ey hudson server
   
   Scenario: Setup new Hudson CI server on AppCloud
     Given I have an environment "hudson" on account "drnic" on AppCloud
-    When I run local executable "ey-hudson" with arguments "server"
+    When I run local executable "ey-hudson" with arguments "server ."
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/hudson_master/recipes/default.rb" is created
     And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs]"
@@ -30,7 +30,7 @@ Feature: Managing ey hudson server
   
   Scenario: Setup Hudson CI server with additional Hudson plugins
     Given I have an environment "hudson" on account "drnic" on AppCloud
-    When I run local executable "ey-hudson" with arguments "server -p ' chucknorris , googleanalytics '"
+    When I run local executable "ey-hudson" with arguments "server . -p ' chucknorris , googleanalytics '"
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/hudson_master/recipes/default.rb" is created
     And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs chucknorris googleanalytics]"

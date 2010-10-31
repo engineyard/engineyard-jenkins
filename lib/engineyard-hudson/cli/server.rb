@@ -5,6 +5,8 @@ module Engineyard
     class Server < Thor::Group
       include Thor::Actions
       
+      argument :project_path
+      
       class_option :plugins, :aliases => '-p', :desc => 'additional Hudson CI plugins (comma separated)'
       
       def self.source_root

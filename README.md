@@ -30,19 +30,37 @@ In the very first release of `engineyard-hudson`:
 
 That is, its really only useful - at this very "alpha" instant in time - to Open Source Rails projects. But that's just me being brutally honest.
 
-## Hosting Hudson CI on Engine Yard AppCloud
+## Hosting Hudson CI
 
-Instructions *coming soon*.
+Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. Hudson CI can be hosted anywhere.
 
-Hosting Hudson CI on Engine Yard AppCloud is optional. It can be hosted anywhere. You need the following information about your Hudson CI:
+### Hosting on Engine Yard AppCloud
 
-* Hudson CI host (& port)
+Just a few steps and you will have your own Hudson CI:
+
+    $ mkdir hudson_server
+    $ cd hudson_server
+    $ ey-hudson server . --plugins 'googleanalytics,chucknorris'
+    
+    Finally:
+    * edit cookbooks/hudson_master/attributes/default.rb as necessary.
+    * run: ey recipes upload # use --environment(-e) & --account(-c)
+    * run: ey recipes apply  #   to select environment
+    * Boot your environment if not already booted.
+
+Do those steps and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
+
+### Hosting elsewhere
+
+You need the following information about your Hudson CI:
+
+* Hudson CI public host (& port)
 * Hudson CI's user's public key (probably at /home/hudson/.ssh/id_rsa.pub)
 * Hudson CI's user's private key path (probably /home/hudson/.ssh/id_rsa)
 
 ## Running your tests in Hudson against Engine Yard AppCloud
 
-After a couple manual steps, you will have your applications tests running.
+Just a few steps and you will have your applications' tests running.
 
     $ cd /my/project
     $ ey-hudson install .

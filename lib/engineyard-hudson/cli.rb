@@ -18,8 +18,8 @@ module Engineyard
         Engineyard::Hudson::Install.start(ARGV[1..-1])
       end
       
-      desc "server", "Setup a Hudson CI server on AppCloud."
-      def server
+      desc "server PROJECT_PATH", "Setup a Hudson CI server on AppCloud."
+      def server(project_path)
         require 'engineyard-hudson/cli/server'
         Engineyard::Hudson::Server.start(ARGV[1..-1])
       end
