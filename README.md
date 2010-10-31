@@ -161,8 +161,8 @@ You are triggering the build via a GET call to an URL endpoint. So you can also 
 
 ## Contributions
 
-* Dr Nic Williams
-* Bo Jeanes - initial chef recipes for Hudson server + slave
+* Dr Nic Williams ([drnic](http://github.com/drnic))
+* Bodaniel Jeanes ([bjeanes](http://github.com/bjeanes)) - initial chef recipes for [Hudson server + slave](http://github.com/bjeanes/ey-cloud-recipes)
 
 ## License
 
