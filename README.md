@@ -18,7 +18,10 @@ You **do not** need to be familiar with custom chef recipes. Just follow the sim
 
 ## Warning
 
-In the very first release of `engineyard-hudson`, there is no support for authentication/authorization of Hudson CI.
+In the very first release of `engineyard-hudson`:
+
+* there is no support for authentication/authorization of Hudson CI.
+* git URLs are converted to public `git://` urls on Hudson; until deploy key support is added
 
 ## Hosting Hudson CI on Engine Yard AppCloud
 
