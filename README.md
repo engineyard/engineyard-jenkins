@@ -62,6 +62,8 @@ You need the following information about your Hudson CI:
 
 ## Running your tests in Hudson against Engine Yard AppCloud
 
+This is the exciting part - ensuring that your CI tests are being run in the same environment as your production applications. In this case, on Engine Yard AppCloud.
+
 Just a few steps and you will have your applications' tests running.
 
     $ cd /my/project
@@ -82,6 +84,10 @@ Do those steps and you're done! Now, you either visit your Hudson CI site or use
 * You should not name any other environments with a suffix of `_ci` or `_hudson_slave`; lest they offer themselves to your Hudson CI as slave nodes.
 * Keep your production and CI environments exactly the same. Use the same Ruby implementation/version, same database, and include the same RubyGems and Unix packages. Why? This is the entire point of the exercise: to run your CI tests in the same environment as your production application runs.
 
+For example, note the naming convention of the two CI environments below (one ends in `_hudson_slave` and the other `_ci`).
+
+<img src="http://img.skitch.com/20101031-dxnk7hbn32yce9rum1ctwjwt1w.png" style="width: 100%">
+
 ### What happens?
 
 When you boot your Engine Yard AppCloud CI environments, each resulting EC2 instance executes a special "hudson_slave" recipe (see `cookbooks/hudson_slave/recipes/default.rb` in your project). This does three things:
@@ -100,6 +106,12 @@ In essence, to add new Rails/Rack applications into your Hudson CI server you:
 
 * Add them to one of your Engine Yard AppCloud CI environments (the one that matches the production environment where the application will be hosted)
 * Rebuild the environment or re-apply the custom recipes (`ey recipes apply`)
+
+### Applications are run in their respective CI environment
+
+Thusly demonstrated below: the application/job "ci_demo_app" is in the middle of a build on its target slave "ci_demo_app_ci". See the AppCloud UI example above to see the relationship between the application/job names and the environment/slave names.
+
+<img src="http://img.skitch.com/20101031-tga2f23wems1acpad1ua41qdmb.png" style="width: 100%">
 
 ### Can I add applications/jobs to Hudson CI other ways?
 
