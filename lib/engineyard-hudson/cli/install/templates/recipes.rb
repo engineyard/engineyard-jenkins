@@ -63,6 +63,7 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /_(ci|hud
           job_config = Hudson::JobConfigBuilder.new("rails") do |c|
             c.scm           = data[:repository_name]
             c.assigned_node = app_name
+            c.public_scm    = true # temporary until we have deploy keys
           end
         
           Hudson::Api.create_job(app_name, job_config)
