@@ -7,11 +7,6 @@ env_name = node[:environment][:name]
 username = node[:users].first[:username]
 
 if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /_(ci|hudson_slave)$/
-  # gem_package "hudson" do
-  #   source "http://gemcutter.org"
-  #   version "0.3.0.beta.3"
-  #   action :install
-  # end
 
   execute "install_hudson_in_resin" do
     command "/usr/local/ey_resin/ruby/bin/gem install #{node[:hudson_slave][:gem][:install]}"
