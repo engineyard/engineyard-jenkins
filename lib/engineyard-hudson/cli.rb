@@ -26,6 +26,7 @@ module Engineyard
       
       desc "version", "show version information"
       def version
+        require 'engineyard-hudson/version'
         shell.say Engineyard::Hudson::VERSION
       end
 
