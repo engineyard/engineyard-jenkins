@@ -5,13 +5,6 @@ module Engineyard
   module Hudson
     class CLI < Thor
 
-      def self.common_options
-        method_option :environment, :type => :string, :aliases => %w(-e), 
-          :desc => "Environment in which to deploy this application", :required => true
-        method_option :account, :type => :string, :aliases => %w(-c), 
-          :desc => "Name of the account you want to deploy in"
-      end
-      
       desc "install PROJECT_PATH", "Install Hudson node/slave recipes into your project."
       def install(project_path)
         require 'engineyard-hudson/cli/install'
