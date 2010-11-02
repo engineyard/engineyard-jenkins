@@ -66,7 +66,7 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|huds
           job_config = Hudson::JobConfigBuilder.new("rails") do |c|
             c.scm           = data[:repository_name]
             c.assigned_node = app_name
-            c.public_scm    = true # temporary until we have deploy keys
+            c.envfile       = "/data/#{app_name}/shared/config/git-env"
           end
         
           Hudson::Api.create_job(app_name, job_config)

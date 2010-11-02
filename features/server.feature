@@ -6,7 +6,7 @@ Feature: Managing ey hudson server
     When I run local executable "ey-hudson" with arguments "server ."
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/hudson_master/recipes/default.rb" is created
-    And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs]"
+    And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs envfile]"
     And I should see exactly
       """
             create  cookbooks
@@ -33,7 +33,7 @@ Feature: Managing ey hudson server
     When I run local executable "ey-hudson" with arguments "server . -p ' chucknorris , googleanalytics '"
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/hudson_master/recipes/default.rb" is created
-    And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs chucknorris googleanalytics]"
+    And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs envfile chucknorris googleanalytics]"
   
   
   

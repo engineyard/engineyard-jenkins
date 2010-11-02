@@ -18,7 +18,7 @@ module Engineyard
       end
       
       def attributes
-        @plugins = %w[git github rake ruby greenballs] + (options[:plugins] || '').strip.split(/\s*,\s*/)
+        @plugins = %w[git github rake ruby greenballs envfile] + (options[:plugins] || '').strip.split(/\s*,\s*/)
         template "attributes.rb.tt", "cookbooks/hudson_master/attributes/default.rb"
       end
       
