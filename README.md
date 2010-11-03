@@ -35,21 +35,29 @@ Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. 
 
 ### Hosting on Engine Yard AppCloud
 
+Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/drnic/ci_demo_app.git` (any arbitrary rails/rack application). Name the environment "hudson" (or similar) and boot it as a Single instance (or Custom cluster with a single instance).
+
 Just a few steps and you will have your own Hudson CI:
 
     $ mkdir hudson_server
     $ cd hudson_server
     $ ey-hudson server . --plugins 'googleanalytics,chucknorris'
-    
-    Finally:
-    * edit cookbooks/hudson_master/attributes/default.rb as necessary.
-    * run: ey recipes upload # use --environment(-e) & --account(-c)
-    * run: ey recipes apply  #   to select environment
-    * Boot your environment if not already booted.
+    $ ey recipes upload -e hudson
+    $ ey recipes apply -e hudson
 
-Do those steps and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
+For the Hudson slaves' configuration, you'll need:
 
-Note: the Hudson CI environment in Engine Yard AppCloud must be a single instance "solo".
+* the `hudson` instance public key:
+
+    $ ey ssh -e hudson
+    $ cat /home/deploy/.ssh/id_rsa.pub
+
+* the `hudson` instance URI:
+
+    $ sudo ruby -rubygems -e "require 'json'; puts JSON.parse(File.read('/etc/chef/dna.json'))['engineyard']['environment']['instances'].first['public_hostname']"
+
+
+Do those steps, copy down the configuration and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
 
 ### Hosting elsewhere
 
