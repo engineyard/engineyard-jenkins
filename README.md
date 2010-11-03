@@ -4,7 +4,9 @@ Run your continuous integration (CI) tests against your Engine Yard AppCloud env
 
 You're developing on OS X or Windows, deploying to Engine Yard AppCloud (Gentoo/Linux), and you're running your CI on your local machine or a spare Ubuntu machine in the corner of the office, or ... you're not running CI at all?
 
-It's a nightmare. It was for me. [Hudson CI](http://hudson-ci.org/), the [hudson](http://github.com/cowboyd/hudson.rb) CLI project, and **engineyard-hudson** now make CI easier to do than not to. A few quick commands and your Rails applications' tests are automatically running, no additional setup, and its the same environment you are deploying your Rails applications (Engine Yard AppCloud). Sweet.
+It's a nightmare. It was for me. 
+
+But now, [Hudson CI](http://hudson-ci.org/), the [hudson](http://github.com/cowboyd/hudson.rb) CLI project, and **engineyard-hudson** now make CI easier to do than not to for Engine Yard AppCloud users.
 
 And here's some logos:
 
