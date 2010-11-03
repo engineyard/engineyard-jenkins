@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Dr Nic Williams"]
   s.email       = ["drnicwilliams@gmail.com"]
   s.homepage    = "http://github.com/engineyard/engineyard-hudson"
-  s.summary     = %q{Easier to do CI than not to. Use Hudson CI on Engine Yard AppCloud.}
+  s.summary     = %q{Easier to do CI than not to. Use Hudson CI with Engine Yard AppCloud.}
   s.description = %q{Run your continuous integration (CI) tests against your Engine Yard AppCloud environments - the exact same configuration you are using in production!}
 
   s.rubyforge_project = "engineyard-hudson"
@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency("thor", ["~> 0.14.3"])
   s.add_dependency("engineyard", ["~> 1.3.3"])
-  # s.add_dependency("hudson", ["~> 0.3.0.beta"])
 
   s.add_development_dependency("rake", ["~> 0.8.7"])
   s.add_development_dependency("cucumber", ["~> 0.9.3"])
