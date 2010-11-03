@@ -3,8 +3,9 @@
 # Recipe:: default
 #
 
-env_name = node[:environment][:name]
-username = node[:users].first[:username]
+env_name      = node[:environment][:name]
+framework_env = node[:environment][:framework_env]
+username      = node[:users].first[:username]
 
 if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|hudson_slave)$/
   gem_package "bundler" do
@@ -39,6 +40,8 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|huds
 
       Hudson::Api.setup_base_url(node[:hudson_slave][:master])
       
+      Hudson::Api.delete_node(env_name)
+      
       # Tell master about this slave
       Hudson::Api.add_node(
         :name        => env_name,
@@ -55,7 +58,7 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|huds
   ruby_block "tell-master-about-new-jobs" do
     block do
       begin
-        job_names   = Hudson::Api.summary["jobs"].map {|job| job["name"]} # TODO Hudson::Api.job_names
+        job_names   = Hudson::Api.job_names
         app_names   = node[:applications].keys
         apps_to_add = app_names - job_names
 
@@ -63,10 +66,20 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|huds
         apps_to_add.each do |app_name|
           data = node[:applications][app_name]
 
-          job_config = Hudson::JobConfigBuilder.new("rails") do |c|
+          # job_config = Hudson::JobConfigBuilder.new("rails") do |c|
+          job_config = Hudson::JobConfigBuilder.new do |c|
             c.scm           = data[:repository_name]
             c.assigned_node = app_name
             c.envfile       = "/data/#{app_name}/shared/config/git-env"
+            c.steps         = [
+              [:build_shell_step, "bundle install"],
+              [:build_ruby_step, <<-RUBY.gsub(/^            /, '')],
+                appcloud_database = "/data/#{app_name}/shared/config/database.yml"
+                FileUtils.cp appcloud_database, "config/database.yml"
+                RUBY
+              [:build_shell_step, "bundle exec rake db:schema:load RAILS_ENV=#{framework_env} RACK_ENV=#{framework_env}"],
+              [:build_shell_step, "bundle exec rake RAILS_ENV=#{framework_env} RACK_ENV=#{framework_env}"]
+            ]
           end
         
           Hudson::Api.create_job(app_name, job_config)
