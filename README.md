@@ -41,7 +41,7 @@ Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. 
 
 ### Hosting on Engine Yard AppCloud
 
-Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/drnic/ci_demo_app.git` (any arbitrary rails/rack application). Name the environment "hudson" (or similar) and boot it as a Single instance (or Custom cluster with a single instance).
+Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/drnic/ci_demo_app.git` (any arbitrary rails/rack application), and add your own SSH keys. Name the environment "hudson" (or similar) and boot it as a Single instance (or Custom cluster with a single instance).
 
 Just a few steps and you will have your own Hudson CI:
 
