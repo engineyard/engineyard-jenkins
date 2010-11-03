@@ -33,15 +33,13 @@ In the very first release of `engineyard-hudson`:
 * There is no support for authentication/authorization of Hudson CI. It _will_ use the deploy keys already installed on your AppCloud instance, as described in engineyard-serverside [#set_up_git_ssh](http://github.com/engineyard/engineyard-serverside/blob/master/lib/engineyard-serverside/strategies/git.rb#L106-134)
 * No mail server configured for Hudson CI build failure notifications.
 
-That is, its really only useful - at this very "alpha" instant in time - to Open Source Rails projects. But that's just me being brutally honest.
-
 ## Hosting Hudson CI
 
 Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. Hudson CI can be hosted anywhere.
 
 ### Hosting on Engine Yard AppCloud
 
-Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/drnic/ci_demo_app.git` (any arbitrary rails/rack application), and add your own SSH keys. Name the environment "hudson" (or similar) and boot it as a Single instance (or Custom cluster with a single instance).
+Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/drnic/ci_demo_app.git` (any arbitrary rails/rack application), and add your own SSH keys. Name the environment `hudson` (or similar) and boot it as a Single instance (or Custom cluster with a single instance).
 
 Just a few steps and you will have your own Hudson CI:
 
