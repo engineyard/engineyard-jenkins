@@ -67,9 +67,9 @@ Do those steps, copy down the configuration and you're done! Now, you either vis
 
 You need the following information about your Hudson CI:
 
-* Hudson CI public host (& port)
-* Hudson CI's user's public key (probably at /home/deploy/.ssh/id_rsa.pub)
-* Hudson CI's user's private key path (probably /home/deploy/.ssh/id_rsa)
+* Hudson CI public host & port
+* Hudson CI's user's public key (probably at `/home/deploy/.ssh/id_rsa.pub`)
+* Hudson CI's user's private key path (probably `/home/deploy/.ssh/id_rsa`)
 
 ## Running your tests in Hudson against Engine Yard AppCloud
 
