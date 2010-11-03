@@ -51,14 +51,14 @@ Just a few steps and you will have your own Hudson CI:
     $ ey recipes upload -e hudson
     $ ey recipes apply -e hudson
 
-For the Hudson slaves' configuration, you'll need:
+*For the Hudson slaves' configuration, you'll need:*
 
-* the `hudson` instance public key:
+The `hudson` instance public key:
 
     $ ey ssh -e hudson
     $ cat /home/deploy/.ssh/id_rsa.pub
 
-* the `hudson` instance URI:
+The `hudson` instance URI:
 
     $ sudo ruby -rubygems -e "require 'json'; puts JSON.parse(File.read('/etc/chef/dna.json'))['engineyard']['environment']['instances'].first['public_hostname']"
 
