@@ -64,25 +64,34 @@ Do those steps, copy down the configuration and you're done! Now, you either vis
 You need the following information about your Hudson CI:
 
 * Hudson CI public host (& port)
-* Hudson CI's user's public key (probably at /home/hudson/.ssh/id_rsa.pub)
-* Hudson CI's user's private key path (probably /home/hudson/.ssh/id_rsa)
+* Hudson CI's user's public key (probably at /home/deploy/.ssh/id_rsa.pub)
+* Hudson CI's user's private key path (probably /home/deploy/.ssh/id_rsa)
 
 ## Running your tests in Hudson against Engine Yard AppCloud
 
 This is the exciting part - ensuring that your CI tests are being run in the same environment as your production applications. In this case, on Engine Yard AppCloud.
 
-Just a few steps and you will have your applications' tests running.
+It is assumed that you already have a production application environment (might have multiple applications in it):
+
+<img src="http://img.skitch.com/20101103-k2u4dpnn6ukkwq1dafbtiuwi2s.png">
+
+In the Engine Yard AppCloud UI, create another environment that matches the production environment exactly (same Ruby, same set of applications, same Unix libraries).
+
+<img src="http://img.skitch.com/20101103-h58t3kfrpc2qm4eb6t4664m13.png">
+
+Now, in just a few steps and you will have your applications' tests running in an environment that matches your production environment:
 
     $ cd /my/project
     $ ey-hudson install .
     
-    Finally:
-    * edit cookbooks/hudson_slave/attributes/default.rb as necessary.
-    * run: ey recipes upload # use --environment(-e) & --account(-c)
-    * run: ey recipes apply  #   to select environment
-    * Boot your environment if not already booted.
+Now edit `cookbooks/hudson_slave/attributes/default.rb` to set up the Hudson CI instance details gathered above.
 
-Do those steps and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
+    $ ey recipes upload -e ci_demo_app_ci
+    $ ey recipes apply -e ci_demo_app_ci
+
+Boot your `ci_demo_app_ci` environment, visit your Hudson CI and WOW! jobs have been created, they are already running, and they are doing it upon your `ci_demo_app_ci` environment!
+
+At any time from the command line you can use `hudson list` to see the status of your jobs
 
 ### Conventions/Requirements
 
