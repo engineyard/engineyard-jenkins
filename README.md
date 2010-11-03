@@ -1,5 +1,7 @@
 # Easier to do CI than not to.
 
+<img src="http://img.skitch.com/20101103-dren7s51qhars844kpqujhtwh7.png" style="float: right;">
+
 Run your continuous integration (CI) tests against your Engine Yard AppCloud environments - the exact same configuration you are using in production!
 
 You're developing on OS X or Windows, deploying to Engine Yard AppCloud (Gentoo/Linux), and you're running your CI on your local machine or a spare Ubuntu machine in the corner of the office, or ... you're not running CI at all?
