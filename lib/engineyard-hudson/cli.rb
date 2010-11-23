@@ -1,5 +1,6 @@
 require 'thor'
 require 'engineyard-hudson/thor-ext/actions/directory'
+require 'engineyard-hudson/appcloud_env'
 
 module Engineyard
   module Hudson
@@ -14,6 +15,7 @@ module Engineyard
       desc "install_server [PROJECT_PATH]", "Install Hudson CI into an AppCloud environment."
       method_option :verbose, :aliases => ["-V"], :desc => "Display more output"
       def install_server(project_path=nil)
+        environment, account = Engineyard::Hudson::AppcloudEnv.select_environment_account(options)
         temp_project_path = File.expand_path(project_path || File.join(Dir.tmpdir, "temp_hudson_server"))
         shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
         FileUtils.mkdir_p(temp_project_path)
