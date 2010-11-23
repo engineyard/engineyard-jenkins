@@ -20,6 +20,14 @@ module Engineyard
         FileUtils.chdir(FileUtils.mkdir_p(temp_project_path)) do
           require 'engineyard-hudson/cli/install_server'
           Engineyard::Hudson::InstallServer.start(ARGV.unshift(temp_project_path))
+
+          environment = "hudson"; account = "drnic" #TODO
+          say ""
+          say "Uploading to '#{environment}' environment on '#{account}' account..."
+          say "Applying to '#{environment}' environment on '#{account}' account..."
+          say ""
+          say "* Boot your environment if not already booted.", :yellow
+          say "You are now hosting a Hudson CI!"
         end
       end
       
@@ -32,6 +40,10 @@ module Engineyard
       map "-v" => :version, "--version" => :version, "-h" => :help, "--help" => :help
 
       private
+      def say(msg, color = nil)
+        color ? shell.say(msg, color) : shell.say(msg)
+      end
+
       def display(text)
         shell.say text
         exit

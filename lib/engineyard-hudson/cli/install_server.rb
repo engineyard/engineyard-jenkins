@@ -20,20 +20,6 @@ module Engineyard
         template "attributes.rb.tt", "cookbooks/hudson_master/attributes/default.rb"
       end
       
-      def readme
-        say ""
-        say "Finally:"
-        say "* edit "; say "cookbooks/hudson_master/attributes/default.rb ", :yellow; say "as necessary."
-        say "* run: "; say "ey recipes upload ", :green; say "# use --environment(-e) & --account(-c)"
-        say "* run: "; say "ey recipes apply  ", :green; say "#   to select environment"
-        say "* "; say "Boot your environment ", :yellow; say "if not already booted."
-        say "When the recipe completes, your solo instance will host a Hudson CI!"
-      end
-
-      private
-      def say(msg, color = nil)
-        color ? shell.say(msg, color) : shell.say(msg)
-      end
     end
   end
 end

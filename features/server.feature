@@ -22,12 +22,11 @@ Feature: Managing ey hudson server
             create  cookbooks/main/recipes/default.rb
             create  cookbooks/hudson_master/attributes/default.rb
       
-      Finally:
-      * edit cookbooks/hudson_master/attributes/default.rb as necessary.
-      * run: ey recipes upload # use --environment(-e) & --account(-c)
-      * run: ey recipes apply  #   to select environment
+      Uploading to 'hudson' environment on 'drnic' account...
+      Applying to 'hudson' environment on 'drnic' account...
+
       * Boot your environment if not already booted.
-      When the recipe completes, your solo instance will host a Hudson CI!
+      You are now hosting a Hudson CI!
       """
   
   Scenario: Install Hudson CI server with additional Hudson plugins
