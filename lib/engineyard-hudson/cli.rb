@@ -11,10 +11,16 @@ module Engineyard
         Engineyard::Hudson::Install.start(ARGV[1..-1])
       end
       
-      desc "server PROJECT_PATH", "Setup a Hudson CI server on AppCloud."
-      def server(project_path)
-        require 'engineyard-hudson/cli/server'
-        Engineyard::Hudson::Server.start(ARGV[1..-1])
+      desc "install_server [PROJECT_PATH]", "Install Hudson CI into an AppCloud environment."
+      method_option :verbose, :aliases => ["-V"], :desc => "Display more output"
+      def install_server(project_path=nil)
+        temp_project_path = File.expand_path(project_path || File.join(Dir.tmpdir, "temp_hudson_server"))
+        shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
+        FileUtils.mkdir_p(temp_project_path)
+        FileUtils.chdir(FileUtils.mkdir_p(temp_project_path)) do
+          require 'engineyard-hudson/cli/install_server'
+          Engineyard::Hudson::InstallServer.start(ARGV.unshift(temp_project_path))
+        end
       end
       
       desc "version", "show version information"

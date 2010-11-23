@@ -2,15 +2,13 @@ require 'thor/group'
 
 module Engineyard
   module Hudson
-    class Server < Thor::Group
+    class InstallServer < Thor::Group
       include Thor::Actions
-      
-      argument :project_path
       
       class_option :plugins, :aliases => '-p', :desc => 'additional Hudson CI plugins (comma separated)'
       
       def self.source_root
-        File.join(File.dirname(__FILE__), "server", "templates")
+        File.join(File.dirname(__FILE__), "install_server", "templates")
       end
       
       def cookbooks
