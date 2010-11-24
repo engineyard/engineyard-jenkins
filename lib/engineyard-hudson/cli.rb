@@ -44,14 +44,14 @@ module Engineyard
           require 'engineyard-hudson/cli/install_server'
           Engineyard::Hudson::InstallServer.start(ARGV.unshift(temp_project_path))
 
-          require 'engineyard/cli/recipes'
           say ""
           say "Uploading to "; say "'#{env_name}' ", :yellow; say "environment on "; say "'#{account_name}' ", :yellow; say "account..."
+          require 'engineyard/cli/recipes'
           environment.upload_recipes
           
           if status == "running"
-            environment.run_custom_recipes
             say "Environment is rebuilding..."
+            environment.run_custom_recipes
             waiting = true
             while waiting
               begin
