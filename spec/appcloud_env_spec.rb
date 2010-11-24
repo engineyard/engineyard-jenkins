@@ -29,6 +29,17 @@ describe Engineyard::Hudson::AppcloudEnv do
       appcloud_env.should_receive(:fetch_environment).with("hudson_server_production", nil).and_raise(EY::NoEnvironmentError)
       find_environments.should == [['hudson', 'mine']]
     end
-      
+    it "returns many result pairs" do
+      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
+      appcloud_env.should_receive(:fetch_environment).with("hudson_server", nil).and_raise(EY::NoEnvironmentError)
+      appcloud_env.should_receive(:fetch_environment).with("hudson_server_production", nil).and_raise(EY::NoEnvironmentError)
+      appcloud_env.should_receive(:fetch_environment).with("hudson_production", nil) {
+        raise EY::MultipleMatchesError, <<-ERROR.gsub(/^\s+/, '')
+           hudson_production # ey <command> --environment='hudson_production' --account='mine'
+           hudson_production # ey <command> --environment='hudson_production' --account='yours'
+        ERROR
+      }
+      find_environments.should == [['hudson', 'mine'], ['hudson_production', 'mine'], ['hudson_production', 'yours']]
+    end
   end
 end

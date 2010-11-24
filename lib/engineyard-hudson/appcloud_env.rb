@@ -26,7 +26,7 @@ module Engineyard
             # 
             #   hudson # ey <command> --environment='hudson' --account='drnic-demo'
             #   hudson # ey <command> --environment='hudson' --account='rails-hudson'
-            if e.message =~ /--environment='([^']+)' --account='([^']+)'/
+            e.message.scan(/--environment='([^']+)' --account='([^']+)'/) do
               envs << [$1, $2]
             end
           end
