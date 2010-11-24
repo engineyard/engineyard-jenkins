@@ -23,13 +23,13 @@ module Engineyard
         elsif environments.size > 1
           say "Multiple environments possible, please be more specific:", :red
           say ""
-          environments.each do |env_name, account_name|
-            say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; say "--account "; 
+          environments.each do |environment, account_name|
+            say "  ey-hudson install_server --environment "; say "'#{environment.name}' ", :yellow; say "--account "; 
               say "'#{account_name}'", :yellow
           end
           return
         end
-        environment, account = environments.first
+        env_name, account_name, environment = environments.first
         temp_project_path = File.expand_path(project_path || File.join(Dir.tmpdir, "temp_hudson_server"))
         shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
         FileUtils.mkdir_p(temp_project_path)
@@ -37,9 +37,12 @@ module Engineyard
           require 'engineyard-hudson/cli/install_server'
           Engineyard::Hudson::InstallServer.start(ARGV.unshift(temp_project_path))
 
+          require 'engineyard/cli/recipes'
           say ""
-          say "Uploading to '#{environment}' environment on '#{account}' account..."
-          say "Applying to '#{environment}' environment on '#{account}' account..."
+          say "Uploading to '#{env_name}' environment on '#{account_name}' account..."
+          environment.upload_recipes
+          say "Applying to '#{env_name}' environment on '#{account_name}' account..."
+          environment.run_custom_recipes
           say ""
           say "* Boot your environment if not already booted.", :yellow
           say "You are now hosting a Hudson CI!"

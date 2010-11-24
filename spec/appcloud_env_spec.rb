@@ -23,14 +23,14 @@ describe Engineyard::Hudson::AppcloudEnv do
       find_environments.should == []
     end
     it "returns [env_name, account_name] if finds one env 'hudson' in any account" do
-      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
+      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(env = EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
       appcloud_env.should_receive(:fetch_environment).with("hudson_server", nil).and_raise(EY::NoEnvironmentError)
       appcloud_env.should_receive(:fetch_environment).with("hudson_production", nil).and_raise(EY::NoEnvironmentError)
       appcloud_env.should_receive(:fetch_environment).with("hudson_server_production", nil).and_raise(EY::NoEnvironmentError)
-      find_environments.should == [['hudson', 'mine']]
+      find_environments.should == [['hudson', 'mine', env]]
     end
     it "returns many result pairs" do
-      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
+      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(env = EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
       appcloud_env.should_receive(:fetch_environment).with("hudson_server", nil).and_raise(EY::NoEnvironmentError)
       appcloud_env.should_receive(:fetch_environment).with("hudson_server_production", nil).and_raise(EY::NoEnvironmentError)
       appcloud_env.should_receive(:fetch_environment).with("hudson_production", nil) {
@@ -39,7 +39,7 @@ describe Engineyard::Hudson::AppcloudEnv do
            hudson_production # ey <command> --environment='hudson_production' --account='yours'
         ERROR
       }
-      find_environments.should == [['hudson', 'mine'], ['hudson_production', 'mine'], ['hudson_production', 'yours']]
+      find_environments.should == [['hudson', 'mine', env], ['hudson_production', 'mine', nil], ['hudson_production', 'yours', nil]]
     end
   end
 
@@ -49,11 +49,11 @@ describe Engineyard::Hudson::AppcloudEnv do
       find_environments(:account => "mine").should == []
     end
     it "returns [env_name, account_name] if finds one env 'hudson' in specific account" do
-      appcloud_env.should_receive(:fetch_environment).with("hudson", "mine").and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
+      appcloud_env.should_receive(:fetch_environment).with("hudson", "mine").and_return(env = EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
       appcloud_env.should_receive(:fetch_environment).with("hudson_server", "mine").and_raise(EY::NoEnvironmentError)
       appcloud_env.should_receive(:fetch_environment).with("hudson_production", "mine").and_raise(EY::NoEnvironmentError)
       appcloud_env.should_receive(:fetch_environment).with("hudson_server_production", "mine").and_raise(EY::NoEnvironmentError)
-      find_environments(:account => "mine").should == [['hudson', 'mine']]
+      find_environments(:account => "mine").should == [['hudson', 'mine', env]]
     end
   end
 
@@ -63,12 +63,12 @@ describe Engineyard::Hudson::AppcloudEnv do
       find_environments(:environment => "hudson").should == []
     end
     it "returns [env_name, account_name] if finds one env 'hudson' in any account" do
-      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
-      find_environments(:environment => "hudson").should == [['hudson', 'mine']]
+      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(env = EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
+      find_environments(:environment => "hudson").should == [['hudson', 'mine', env]]
     end
     it "returns [env_name, account_name] if finds one env 'hudson' in specific account" do
-      appcloud_env.should_receive(:fetch_environment).with("hudson", "mine").and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
-      find_environments(:environment => "hudson", :account => "mine").should == [['hudson', 'mine']]
+      appcloud_env.should_receive(:fetch_environment).with("hudson", "mine").and_return(env = EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
+      find_environments(:environment => "hudson", :account => "mine").should == [['hudson', 'mine', env]]
     end
   end
 end

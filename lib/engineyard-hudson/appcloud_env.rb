@@ -16,8 +16,8 @@ module Engineyard
         query_environments = options[:environment] ? [options[:environment]] : default_query_environments
         query_environments.inject([]) do |envs, env_name|
           begin
-            if application = fetch_environment(env_name, options[:account])
-              envs << [env_name, application.account.name]
+            if environment = fetch_environment(env_name, options[:account])
+              envs << [env_name, environment.account.name, environment]
             end
           rescue EY::NoEnvironmentError
           rescue EY::MultipleMatchesError => e
@@ -27,7 +27,7 @@ module Engineyard
             #   hudson # ey <command> --environment='hudson' --account='drnic-demo'
             #   hudson # ey <command> --environment='hudson' --account='rails-hudson'
             e.message.scan(/--environment='([^']+)' --account='([^']+)'/) do
-              envs << [$1, $2]
+              envs << [$1, $2, nil]
             end
           end
           envs
