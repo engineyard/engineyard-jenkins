@@ -62,6 +62,7 @@ module Engineyard
               rescue SocketError => e
                 sleep 1; print 'x'; $stdout.flush
               rescue Exception
+                sleep 1; print '.'; $stdout.flush
               end
             end
             say ""
