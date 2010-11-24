@@ -19,7 +19,11 @@ module Engineyard
       def install_server(project_path=nil)
         environments = Engineyard::Hudson::AppcloudEnv.new.find_environments(options)
         if environments.size == 0
-          error "No environments with name hudson, hudson_server, hudson_production, hudson_server_production"
+          say "No environments with name hudson, hudson_server, hudson_production, hudson_server_production.", :red
+          say "Either:"
+          say "  * Create an AppCloud environment called hudson, hudson_server, hudson_production, hudson_server_production"
+          say "  * Use --environment/--account flags to select AppCloud environment"
+          return
         elsif environments.size > 1
           say "Multiple environments possible, please be more specific:", :red
           say ""
