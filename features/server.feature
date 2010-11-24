@@ -2,10 +2,12 @@
 Feature: Managing ey hudson server
   I want to install a Hudson CI server hosted on Engine Yard AppCloud
   
+  Background:
+    Given I have setup my engineyard email/password for API access
+    
   Scenario: Install new Hudson CI server on AppCloud
-    Given I have an environment "hudson" on account "drnic" on AppCloud
-    # or hudson_server, hudson_server_production, or hudson_production
-    When I run local executable "ey-hudson" with arguments "install_server ."
+    Given I have "two accounts, two apps, two environments, ambiguous"
+    When I run local executable "ey-hudson" with arguments "install_server . --account account_2 --environment giblets"
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/hudson_master/recipes/default.rb" is created
     And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs envfile]"
@@ -22,8 +24,8 @@ Feature: Managing ey hudson server
             create  cookbooks/main/recipes/default.rb
             create  cookbooks/hudson_master/attributes/default.rb
       
-      Uploading to 'hudson' environment on 'drnic' account...
-      Applying to 'hudson' environment on 'drnic' account...
+      Uploading to 'giblets' environment on 'account_2' account...
+      Applying to 'giblets' environment on 'account_2' account...
 
       * Boot your environment if not already booted.
       You are now hosting a Hudson CI!

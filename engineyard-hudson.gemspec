@@ -21,8 +21,12 @@ Gem::Specification.new do |s|
   s.add_dependency("engineyard", ["~> 1.3.4"])
 
   s.add_development_dependency("rake", ["~> 0.8.7"])
-  s.add_development_dependency("cucumber", ["~> 0.9.3"])
-  s.add_development_dependency("rspec", ["~> 2.0.1"])
+  s.add_development_dependency("cucumber", ["~> 0.9.4"])
+  s.add_development_dependency("rspec", ["~> 2.1.0"])
   s.add_development_dependency("json", ["~>1.4.0"])
   s.add_development_dependency("awesome_print")
+  s.add_development_dependency("realweb", '~>0.1.6')
+  s.add_development_dependency("open4")
+  s.add_development_dependency("sinatra")
+  s.add_development_dependency("fakeweb", "~>1.3.0")
 end
