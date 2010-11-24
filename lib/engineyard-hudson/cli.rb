@@ -35,7 +35,7 @@ module Engineyard
         end
         
         env_name, account_name, environment = environments.first
-        public_hostname, status = environment.instances.first.public_hostname, environment.instances.first.status
+        public_hostname, status = environment.instances.first.public_hostname, environment.instances.first.status if environment.instances.first
         
         temp_project_path = File.expand_path(project_path || File.join(Dir.tmpdir, "temp_hudson_server"))
         shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
@@ -72,17 +72,12 @@ module Engineyard
               end
             end
             say ""
-            say "Done! Hudson at "; say "http://#{public_hostname}", :green
+            say "Done! Hudson CI hosted at "; say "http://#{public_hostname}", :green
           else
-            # TODO untested
-            require "ruby-debug"
-            debugger
             say ""
+            say "Almost there..."
             say "* Boot your environment via https://cloud.engineyard.com", :yellow
-            say "* Hudson CI will be at http://#{public_hostname}"
           end
-          say ""
-          say "You are now hosting a Hudson CI!"
         end
       end
       

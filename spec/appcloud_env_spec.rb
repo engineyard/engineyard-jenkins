@@ -16,6 +16,7 @@ describe Engineyard::Hudson::AppcloudEnv do
     @home_path  = File.expand_path(File.join(@tmp_root, "home"))
     FileUtils.mkdir_p(@home_path)
     ENV['EYRC'] = File.join(@home_path, ".eyrc")
+    appcloud_env.stub(:clean_host_name)
   end
   describe ".find_environments - no args" do
     it "return [nil, nil] unless it has reason to return something else" do

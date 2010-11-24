@@ -29,9 +29,7 @@ Feature: Managing ey hudson server
       ..
       Hudson is starting...
       
-      Done! Hudson at http://app-master-hostname.compute-1.amazonaws.com
-
-      You are now hosting a Hudson CI!
+      Done! Hudson CI hosted at http://app-master-hostname.compute-1.amazonaws.com
       """
   
   @wip
