@@ -54,10 +54,8 @@ module Engineyard
 
             say ""
             say "Hudson is starting..."
-            Net::HTTP.start(public_hostname, 80) do |http|
-              watch_page_while public_hostname, 80, "/" do |req|
-                req.body =~ /Please wait while Hudson is getting ready to work/
-              end
+            watch_page_while public_hostname, 80, "/" do |req|
+              req.body =~ /Please wait while Hudson is getting ready to work/
             end
             say ""
             say "Done! Hudson CI hosted at "; say "http://#{public_hostname}", :green

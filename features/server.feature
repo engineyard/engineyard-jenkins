@@ -28,7 +28,7 @@ Feature: Managing ey hudson server
       Environment is rebuilding...
       ..
       Hudson is starting...
-      
+      .
       Done! Hudson CI hosted at http://app-master-hostname.compute-1.amazonaws.com
       """
   
