@@ -48,24 +48,15 @@ module Engineyard
           if status == "running"
             say "Environment is rebuilding..."
             environment.run_custom_recipes
-            waiting = true
-            while waiting
-              begin
-                Net::HTTP.start(public_hostname, 80) do |http|
-                  waiting = (body = http.get("/").body) !~ /Please wait while Hudson is getting ready to work/
-                end
-                sleep 1; print '.'; $stdout.flush
-              rescue SocketError => e
-                sleep 1; print 'x'; $stdout.flush
-              rescue Exception
-                sleep 1; print '.'; $stdout.flush
-              end
+            watch_page_while public_hostname, 80, "/" do |req|
+              req.body !~ /Please wait while Hudson is getting ready to work/
             end
+
             say ""
             say "Hudson is starting..."
             Net::HTTP.start(public_hostname, 80) do |http|
-              while http.get("/").body =~ /Please wait while Hudson is getting ready to work/
-                sleep 1; print '.'; $stdout.flush
+              watch_page_while public_hostname, 80, "/" do |req|
+                req.body =~ /Please wait while Hudson is getting ready to work/
               end
             end
             say ""
@@ -114,6 +105,24 @@ module Engineyard
         environments.each do |env_name, account_name, environment|
           say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; 
             say "--account "; say "'#{account_name}'", :yellow
+        end
+      end
+      
+      def watch_page_while(host, port, path)
+        waiting = true
+        while waiting
+          begin
+            Net::HTTP.start(host, port) do |http|
+              req = http.get(path)
+              waiting = yield req
+            end
+            sleep 1; print '.'; $stdout.flush
+          rescue SocketError => e
+            sleep 1; print 'x'; $stdout.flush
+          rescue Exception => e
+            puts e.message
+            sleep 1; print '.'; $stdout.flush
+          end
         end
       end
     end
