@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency("open4")
   s.add_development_dependency("sinatra")
   s.add_development_dependency("fakeweb", "~>1.3.0")
+  s.add_dependency("ruby-debug")
 end

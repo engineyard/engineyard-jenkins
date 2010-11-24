@@ -28,8 +28,8 @@ module Engineyard
           say "Multiple environments possible, please be more specific:", :red
           say ""
           environments.each do |env_name, account_name, environment|
-            say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; say "--account "; 
-              say "'#{account_name}'", :yellow
+            say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; 
+              say "--account "; say "'#{account_name}'", :yellow
           end
           return
         end
@@ -56,11 +56,13 @@ module Engineyard
             while waiting
               begin
                 Net::HTTP.start(public_hostname, 80) do |http|
-                  waiting = http.get("/").body !~ /Please wait while Hudson is getting ready to work/
+                  waiting = (body = http.get("/").body) !~ /Please wait while Hudson is getting ready to work/
                 end
+                sleep 1; print '.'; $stdout.flush
+              rescue SocketError => e
+                sleep 1; print 'x'; $stdout.flush
               rescue Exception
               end
-              sleep 1; print '.'; $stdout.flush
             end
             say ""
             say "Hudson is starting..."

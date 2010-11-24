@@ -17,6 +17,7 @@ module Engineyard
         query_environments.inject([]) do |envs, env_name|
           begin
             if environment = fetch_environment(env_name, options[:account])
+              clean_host_name(environment)
               envs << [env_name, environment.account.name, environment]
             end
           rescue EY::NoEnvironmentError
@@ -36,6 +37,12 @@ module Engineyard
       
       def default_query_environments
         %w[hudson hudson_server hudson_production hudson_server_production]
+      end
+      
+      # Currently the engineyard gem has badly formed URLs in its same data
+      # This method cleans app_master_hostname.compute-1.amazonaws.com -> app-master-hostname.compute-1.amazonaws.com
+      def clean_host_name(environment)
+        environment.instances.first.public_hostname.gsub!(/_/,'-')
       end
     end
   end

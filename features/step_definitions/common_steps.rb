@@ -44,10 +44,22 @@ When /^I run project executable "(.*)" with arguments "(.*)"/ do |executable, ar
 end
 
 When /^I run local executable "(.*)" with arguments "(.*)"/ do |executable, arguments|
-  @stdout = File.expand_path(File.join(@tmp_root, "executable.out"))
-  executable = File.expand_path(File.join(File.dirname(__FILE__), "/../../bin", executable))
-  in_project_folder do
-    system "ruby -rubygems #{executable.inspect} #{arguments} > #{@stdout.inspect} 2> #{@stdout.inspect}"
+  if executable == "ey-hudson"
+    require 'engineyard-hudson'
+    require 'engineyard-hudson/cli'
+    in_project_folder do
+      stdout, stderr = capture_stdios do
+        Engineyard::Hudson::CLI.start(arguments.split(/ /))
+      end
+      @stdout = File.expand_path(File.join(@tmp_root, "executable.out"))
+      File.open(@stdout, "w") {|f| f << stdout; f << stderr}
+    end
+  else
+    @stdout = File.expand_path(File.join(@tmp_root, "executable.out"))
+    executable = File.expand_path(File.join(File.dirname(__FILE__), "/../../bin", executable))
+    in_project_folder do
+      system "ruby -rubygems #{executable.inspect} #{arguments} > #{@stdout.inspect} 2> #{@stdout.inspect}"
+    end
   end
 end
 

@@ -1,10 +1,10 @@
-@wip
 Feature: Managing ey hudson server
   I want to install a Hudson CI server hosted on Engine Yard AppCloud
   
   Background:
     Given I have setup my engineyard email/password for API access
     And I have "two accounts, two apps, two environments, ambiguous"
+    And I want to fake out the boot sequence of Hudson
     
   Scenario: Install new Hudson CI server on AppCloud
     When I run local executable "ey-hudson" with arguments "install_server . --account account_2 --environment giblets"
@@ -25,14 +25,16 @@ Feature: Managing ey hudson server
             create  cookbooks/hudson_master/attributes/default.rb
       
       Uploading to 'giblets' environment on 'account_2' account...
-      Applying to 'giblets' environment on 'account_2' account...
       Environment is rebuilding...
+      ..
       Hudson is starting...
-      Done! Hudson at http://app_master_hostname.compute-1.amazonaws.com
+      
+      Done! Hudson at http://app-master-hostname.compute-1.amazonaws.com
 
       You are now hosting a Hudson CI!
       """
   
+  @wip
   Scenario: Install Hudson CI server with additional Hudson plugins
     When I run local executable "ey-hudson" with arguments "install_server . -p ' chucknorris , googleanalytics ' -c account_2 -e giblets"
     Then file "cookbooks/main/recipes/default.rb" is created

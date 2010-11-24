@@ -3,6 +3,7 @@ PATH
   specs:
     engineyard-hudson (0.3.0)
       engineyard (~> 1.3.4)
+      ruby-debug
       thor (~> 0.14.6)
 
 GEM
@@ -10,6 +11,7 @@ GEM
   specs:
     awesome_print (0.2.1)
     builder (2.1.2)
+    columnize (0.3.1)
     cucumber (0.9.4)
       builder (~> 2.1.2)
       diff-lcs (~> 1.1.2)
@@ -35,6 +37,7 @@ GEM
     highline (1.6.1)
     json (1.4.6)
     json_pure (1.4.6)
+    linecache (0.43)
     mime-types (1.16)
     open4 (1.0.1)
     rack (1.2.1)
@@ -51,6 +54,11 @@ GEM
     rspec-expectations (2.1.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.1.0)
+    ruby-debug (0.10.3)
+      columnize (>= 0.1)
+      ruby-debug-base (~> 0.10.3.0)
+    ruby-debug-base (0.10.3)
+      linecache (>= 0.3)
     sinatra (1.1.0)
       rack (~> 1.1)
       tilt (~> 1.1)
@@ -72,5 +80,6 @@ DEPENDENCIES
   rake (~> 0.8.7)
   realweb (~> 0.1.6)
   rspec (~> 2.1.0)
+  ruby-debug
   sinatra
   thor (~> 0.14.6)
