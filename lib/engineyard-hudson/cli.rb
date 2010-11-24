@@ -16,31 +16,27 @@ module Engineyard
       method_option :verbose, :aliases     => ["-V"], :desc => "Display more output"
       method_option :environment, :aliases => ["-e"], :desc => "Environment in which to deploy this application", :type => :string
       method_option :account, :aliases     => ["-c"], :desc => "Name of the account you want to deploy in"
+      # Generates a chef recipe cookbook, uploads it to AppCloud, and waits until Hudson CI has launched
       def install_server(project_path=nil)
         environments = Engineyard::Hudson::AppcloudEnv.new.find_environments(options)
         if environments.size == 0
-          say "No environments with name hudson, hudson_server, hudson_production, hudson_server_production.", :red
-          say "Either:"
-          say "  * Create an AppCloud environment called hudson, hudson_server, hudson_production, hudson_server_production"
-          say "  * Use --environment/--account flags to select AppCloud environment"
-          return
+          no_environments_discovered and return
         elsif environments.size > 1
-          say "Multiple environments possible, please be more specific:", :red
-          say ""
-          environments.each do |env_name, account_name, environment|
-            say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; 
-              say "--account "; say "'#{account_name}'", :yellow
-          end
-          return
+          too_many_environments_discovered(environments) and return
         end
         
         env_name, account_name, environment = environments.first
-        public_hostname, status = environment.instances.first.public_hostname, environment.instances.first.status if environment.instances.first
+        if environment.instances.first
+          public_hostname = environment.instances.first.public_hostname
+          status          = environment.instances.first.status
+        end
         
         temp_project_path = File.expand_path(project_path || File.join(Dir.tmpdir, "temp_hudson_server"))
         shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
+        
         FileUtils.mkdir_p(temp_project_path)
         FileUtils.chdir(FileUtils.mkdir_p(temp_project_path)) do
+          # 'install_server' generator
           require 'engineyard-hudson/cli/install_server'
           Engineyard::Hudson::InstallServer.start(ARGV.unshift(temp_project_path))
 
@@ -103,6 +99,22 @@ module Engineyard
       def error(text)
         shell.say "ERROR: #{text}", :red
         exit
+      end
+      
+      def no_environments_discovered
+        say "No environments with name hudson, hudson_server, hudson_production, hudson_server_production.", :red
+        say "Either:"
+        say "  * Create an AppCloud environment called hudson, hudson_server, hudson_production, hudson_server_production"
+        say "  * Use --environment/--account flags to select AppCloud environment"
+      end
+      
+      def too_many_environments_discovered(environments)
+        say "Multiple environments possible, please be more specific:", :red
+        say ""
+        environments.each do |env_name, account_name, environment|
+          say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; 
+            say "--account "; say "'#{account_name}'", :yellow
+        end
       end
     end
   end
