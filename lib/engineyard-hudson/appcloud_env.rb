@@ -1,12 +1,47 @@
+require "engineyard"
+require "engineyard/thor"
+require "engineyard/cli"
+require "engineyard/cli/ui"
+require "engineyard/error"
 module Engineyard
   module Hudson
-    module AppcloudEnv
-      extend self
+    class AppcloudEnv
+      include EY::UtilityMethods
       
       # Returns [environment, account] based on current .eyrc credentials and/or CLI options
       # Returns [nil, nil] if no unique environment can be selected
-      def select_environment_account(options = {})
-        [nil, nil]
+      def find_environments(options = {})
+        Thor::Base.shell = EY::CLI::UI
+        EY.ui = EY::CLI::UI.new
+        query_environments = options[:environment] ? [options[:environment]] : default_query_environments
+        query_environments.inject([]) do |envs, env_name|
+          begin
+            if application = fetch_environment_or_nil(env_name, options[:account])
+              envs << [env_name, application.account.name]
+            end
+          rescue EY::MultipleMatchesError => e
+            # e.message looks something like:
+            # Multiple environments possible, please be more specific:
+            # 
+            #   hudson # ey <command> --environment='hudson' --account='drnic-demo'
+            #   hudson # ey <command> --environment='hudson' --account='rails-hudson'
+            if e.message =~ /--environment='([^']+)' --account='([^']+)'/
+              envs << [$1, $2]
+            end
+          end
+          envs
+        end
+      end
+      
+      def fetch_environment_or_nil(env_name, account_name)
+        begin
+          fetch_environment(env_name, account_name)
+        rescue EY::NoEnvironmentError
+        end
+      end
+      
+      def default_query_environments
+        %w[hudson hudson_server hudson_production hudson_server_production]
       end
     end
   end

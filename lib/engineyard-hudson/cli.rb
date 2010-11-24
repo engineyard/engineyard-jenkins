@@ -13,9 +13,23 @@ module Engineyard
       end
       
       desc "install_server [PROJECT_PATH]", "Install Hudson CI into an AppCloud environment."
-      method_option :verbose, :aliases => ["-V"], :desc => "Display more output"
+      method_option :verbose, :aliases     => ["-V"], :desc => "Display more output"
+      method_option :environment, :aliases => ["-e"], :desc => "Environment in which to deploy this application", :type => :string
+      method_option :account, :aliases     => ["-c"], :desc => "Name of the account you want to deploy in"
       def install_server(project_path=nil)
-        environment, account = Engineyard::Hudson::AppcloudEnv.select_environment_account(options)
+        environments = Engineyard::Hudson::AppcloudEnv.new.find_environments(options)
+        if environments.size == 0
+          error "No environments with name hudson, hudson_server, hudson_production, hudson_server_production"
+        elsif environments.size > 1
+          say "Multiple environments possible, please be more specific:", :red
+          say ""
+          environments.each do |env_name, account_name|
+            say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; say "--account "; 
+              say "'#{account_name}'", :yellow
+          end
+          return
+        end
+        environment, account = environments.first
         temp_project_path = File.expand_path(project_path || File.join(Dir.tmpdir, "temp_hudson_server"))
         shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
         FileUtils.mkdir_p(temp_project_path)
@@ -23,7 +37,6 @@ module Engineyard
           require 'engineyard-hudson/cli/install_server'
           Engineyard::Hudson::InstallServer.start(ARGV.unshift(temp_project_path))
 
-          environment = "hudson"; account = "drnic" #TODO
           say ""
           say "Uploading to '#{environment}' environment on '#{account}' account..."
           say "Applying to '#{environment}' environment on '#{account}' account..."
