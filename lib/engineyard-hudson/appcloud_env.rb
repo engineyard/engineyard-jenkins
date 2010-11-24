@@ -16,9 +16,10 @@ module Engineyard
         query_environments = options[:environment] ? [options[:environment]] : default_query_environments
         query_environments.inject([]) do |envs, env_name|
           begin
-            if application = fetch_environment_or_nil(env_name, options[:account])
+            if application = fetch_environment(env_name, options[:account])
               envs << [env_name, application.account.name]
             end
+          rescue EY::NoEnvironmentError
           rescue EY::MultipleMatchesError => e
             # e.message looks something like:
             # Multiple environments possible, please be more specific:
@@ -30,13 +31,6 @@ module Engineyard
             end
           end
           envs
-        end
-      end
-      
-      def fetch_environment_or_nil(env_name, account_name)
-        begin
-          fetch_environment(env_name, account_name)
-        rescue EY::NoEnvironmentError
         end
       end
       

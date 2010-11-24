@@ -23,10 +23,10 @@ describe Engineyard::Hudson::AppcloudEnv do
       find_environments.should == []
     end
     it "returns [env_name, account_name] if finds one env 'hudson' in any account" do
-      appcloud_env.should_receive(:fetch_environment_or_nil).with("hudson", nil).and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
-      appcloud_env.should_receive(:fetch_environment_or_nil).with("hudson_server", nil).and_return(nil)
-      appcloud_env.should_receive(:fetch_environment_or_nil).with("hudson_production", nil).and_return(nil)
-      appcloud_env.should_receive(:fetch_environment_or_nil).with("hudson_server_production", nil).and_return(nil)
+      appcloud_env.should_receive(:fetch_environment).with("hudson", nil).and_return(EY::Model::App.new(123, EY::Model::Account.new(789, 'mine')))
+      appcloud_env.should_receive(:fetch_environment).with("hudson_server", nil).and_raise(EY::NoEnvironmentError)
+      appcloud_env.should_receive(:fetch_environment).with("hudson_production", nil).and_raise(EY::NoEnvironmentError)
+      appcloud_env.should_receive(:fetch_environment).with("hudson_server_production", nil).and_raise(EY::NoEnvironmentError)
       find_environments.should == [['hudson', 'mine']]
     end
       
