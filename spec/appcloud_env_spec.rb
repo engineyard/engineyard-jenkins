@@ -17,7 +17,7 @@ describe Engineyard::Hudson::AppcloudEnv do
     FileUtils.mkdir_p(@home_path)
     ENV['EYRC'] = File.join(@home_path, ".eyrc")
   end
-  describe ".select_environment_account" do
+  describe ".find_environments - no args" do
     it "return [nil, nil] unless it has reason to return something else" do
       appcloud_env.stub(:fetch_environment).and_raise(EY::NoEnvironmentError)
       find_environments.should == []
