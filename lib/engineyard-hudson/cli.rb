@@ -70,7 +70,7 @@ module Engineyard
               end
             end
             say ""
-            say "Done! Hudson at http://#{public_hostname}"
+            say "Done! Hudson at "; say "http://#{public_hostname}", :green
           else
             # TODO untested
             require "ruby-debug"
