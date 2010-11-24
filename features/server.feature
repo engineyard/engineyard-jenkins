@@ -36,6 +36,17 @@ Feature: Managing ey hudson server
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/hudson_master/recipes/default.rb" is created
     And file "cookbooks/hudson_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs envfile chucknorris googleanalytics]"
+
+  Scenario: Display example explicit calls if multiple accounts/options
+    When I run local executable "ey-hudson" with arguments "install_server . -e giblets"
+    Then file "cookbooks/main/recipes/default.rb" is not created
+    And I should see exactly
+      """
+      Multiple environments possible, please be more specific:
+
+        ey-hudson install_server --environment 'giblets' --account 'main'
+        ey-hudson install_server --environment 'giblets' --account 'account_2'
+      """
   
   Scenario: Ask for environment/account details if no obvious hudson environment on AppCloud
     When I run local executable "ey-hudson" with arguments "install_server ."

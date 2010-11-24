@@ -27,8 +27,8 @@ module Engineyard
         elsif environments.size > 1
           say "Multiple environments possible, please be more specific:", :red
           say ""
-          environments.each do |environment, account_name|
-            say "  ey-hudson install_server --environment "; say "'#{environment.name}' ", :yellow; say "--account "; 
+          environments.each do |env_name, account_name, environment|
+            say "  ey-hudson install_server --environment "; say "'#{env_name}' ", :yellow; say "--account "; 
               say "'#{account_name}'", :yellow
           end
           return
