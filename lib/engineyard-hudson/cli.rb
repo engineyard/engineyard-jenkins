@@ -33,7 +33,10 @@ module Engineyard
           end
           return
         end
+        
         env_name, account_name, environment = environments.first
+        public_hostname, status = environment.instances.first.public_hostname, environment.instances.first.status
+        
         temp_project_path = File.expand_path(project_path || File.join(Dir.tmpdir, "temp_hudson_server"))
         shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
         FileUtils.mkdir_p(temp_project_path)
@@ -43,12 +46,40 @@ module Engineyard
 
           require 'engineyard/cli/recipes'
           say ""
-          say "Uploading to '#{env_name}' environment on '#{account_name}' account..."
+          say "Uploading to "; say "'#{env_name}' ", :yellow; say "environment on "; say "'#{account_name}' ", :yellow; say "account..."
           environment.upload_recipes
-          say "Applying to '#{env_name}' environment on '#{account_name}' account..."
-          environment.run_custom_recipes
+          
+          if status == "running"
+            environment.run_custom_recipes
+            say "Environment is rebuilding..."
+            waiting = true
+            while waiting
+              begin
+                Net::HTTP.start(public_hostname, 80) do |http|
+                  waiting = http.get("/").body !~ /Please wait while Hudson is getting ready to work/
+                end
+              rescue Exception
+              end
+              sleep 1; print '.'; $stdout.flush
+            end
+            say ""
+            say "Hudson is starting..."
+            Net::HTTP.start(public_hostname, 80) do |http|
+              while http.get("/").body =~ /Please wait while Hudson is getting ready to work/
+                sleep 1; print '.'; $stdout.flush
+              end
+            end
+            say ""
+            say "Done! Hudson at http://#{public_hostname}"
+          else
+            # TODO untested
+            require "ruby-debug"
+            debugger
+            say ""
+            say "* Boot your environment via https://cloud.engineyard.com", :yellow
+            say "* Hudson CI will be at http://#{public_hostname}"
+          end
           say ""
-          say "* Boot your environment if not already booted.", :yellow
           say "You are now hosting a Hudson CI!"
         end
       end
