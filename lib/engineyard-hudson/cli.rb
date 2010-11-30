@@ -57,6 +57,12 @@ module Engineyard
             watch_page_while public_hostname, 80, "/" do |req|
               req.body =~ /Please wait while Hudson is getting ready to work/
             end
+            
+            require 'hudson'
+            require 'hudson/config'
+            ::Hudson::Config.config["base_uri"] = public_hostname
+            ::Hudson::Config.store!
+            
             say ""
             say "Done! Hudson CI hosted at "; say "http://#{public_hostname}", :green
           else

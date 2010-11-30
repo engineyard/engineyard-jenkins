@@ -31,6 +31,8 @@ Feature: Managing ey hudson server
       .
       Done! Hudson CI hosted at http://app-master-hostname.compute-1.amazonaws.com
       """
+    When I run executable "hudson" with arguments "default_host"
+    Then I should see "http://app-master-hostname.compute-1.amazonaws.com"
   
   @wip
   Scenario: Install Hudson CI server with additional Hudson plugins
