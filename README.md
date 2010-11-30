@@ -32,33 +32,30 @@ Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. 
 
 ### Hosting on Engine Yard AppCloud
 
-Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/drnic/ci_demo_app.git` (any arbitrary rails/rack application), and add your own SSH keys. Name the environment `hudson` (or similar) and boot it as a Single instance (or Custom cluster with a single instance).
+Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/engineyard/hudson_server.git`, and add your own SSH keys. This will create an environment called `hudson_server_production`. Boot the environment as a Single instance (or Custom cluster with a single instance). 
 
-Just a few steps and you will have your own Hudson CI:
+Optionally, though it is quite pretty, deploy/ship the hudson_server application and visit the HTTP link to see the remaining "Almost there..." instructions.
 
-    $ mkdir hudson_server
-    $ cd hudson_server
-    $ ey-hudson server . --plugins 'googleanalytics,chucknorris'
-    $ ey recipes upload -e hudson
-    $ ey recipes apply -e hudson
+Finally, install Hudson CI and rebuild the environment:
+
+    $ ey-hudson install_server
+
+When this completes, visit the URL or refresh the "Almost there..." page to see your Hudson CI server.
+
+Using the `hudson list` CLI task you can also test there is a working server with no jobs:
 
 *For the Hudson slaves' configuration, you'll need:*
 
-The `hudson` instance public key:
+The `hudson_server_production` instance public key:
 
-    $ ey ssh -e hudson
-    $ cat /home/deploy/.ssh/id_rsa.pub
-
-The `hudson` instance URI:
-
-    $ sudo ruby -rubygems -e "require 'json'; puts JSON.parse(File.read('/etc/chef/dna.json'))['engineyard']['environment']['instances'].first['public_hostname']"
-
+    $ ey ssh -e hudson_server_production
+    # cat /home/deploy/.ssh/id_rsa.pub
 
 Do those steps, copy down the configuration and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
 
 ### Hosting elsewhere
 
-You need the following information about your Hudson CI:
+If you host your Hudson CI elsewhere then you need the following information about your Hudson CI environment to be able to add EngineYard AppCloud instances as Hudson nodes/slaves:
 
 * Hudson CI public host & port
 * Hudson CI's user's public key (probably at `/home/deploy/.ssh/id_rsa.pub`)
