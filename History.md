@@ -1,5 +1,8 @@
 # History
 
+* install_server
+  * Updates the default host for `hudson` CLI to newly created server
+
 ## 0.3.0 - 2010-11-24
 
 * Renamed task 'server' => 'install_server'

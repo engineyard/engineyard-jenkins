@@ -16,9 +16,7 @@ And here's some logos:
 
     gem install engineyard-hudson
 
-You might also like the `hudson` CLI to play with your Hudson CI from the command line:
-
-    gem install hudson
+This will also install the `hudson` CLI to interact with your Hudson CI from the command line.
 
 ## Assumptions
 
