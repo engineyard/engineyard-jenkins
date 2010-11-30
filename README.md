@@ -26,13 +26,6 @@ It is assumed you are familiar with the [engineyard](http://github.com/engineyar
 
 You **do not** need to be familiar with custom chef recipes. Just follow the simple commands. Easy peasy.
 
-## Warning (aka TODO list)
-
-In the very first release of `engineyard-hudson`:
-
-* There is no support for authentication/authorization of Hudson CI. It _will_ use the deploy keys already installed on your AppCloud instance, as described in engineyard-serverside [#set_up_git_ssh](http://github.com/engineyard/engineyard-serverside/blob/master/lib/engineyard-serverside/strategies/git.rb#L106-134)
-* No mail server configured for Hudson CI build failure notifications.
-
 ## Hosting Hudson CI
 
 Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. Hudson CI can be hosted anywhere.
