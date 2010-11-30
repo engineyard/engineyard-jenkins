@@ -18,17 +18,7 @@ And here's some logos:
 
 This will also install the `hudson` CLI to interact with your Hudson CI from the command line.
 
-## Assumptions
-
-It is assumed you are familiar with the [engineyard](http://github.com/engineyard/engineyard) CLI gem.
-
-You **do not** need to be familiar with custom chef recipes. Just follow the simple commands. Easy peasy.
-
-## Hosting Hudson CI
-
-Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. Hudson CI can be hosted anywhere.
-
-### Hosting on Engine Yard AppCloud
+## Hosting on Engine Yard AppCloud
 
 Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/engineyard/hudson_server.git`, and add your own SSH keys. This will create an environment called `hudson_server_production`. Boot the environment as a Single instance (or Custom cluster with a single instance). 
 
@@ -51,7 +41,9 @@ The `hudson_server_production` instance public key:
 
 Do those steps, copy down the configuration and you're done! Now, you either visit your Hudson CI site or use `hudson list` to see the status of your projects being tested.
 
-### Hosting elsewhere
+## Hosting elsewhere
+
+Hosting Hudson CI on Engine Yard AppCloud is optional; yet delightfully simple. Hudson CI can be hosted anywhere.
 
 If you host your Hudson CI elsewhere then you need the following information about your Hudson CI environment to be able to add EngineYard AppCloud instances as Hudson nodes/slaves:
 
@@ -59,7 +51,7 @@ If you host your Hudson CI elsewhere then you need the following information abo
 * Hudson CI's user's public key (probably at `/home/deploy/.ssh/id_rsa.pub`)
 * Hudson CI's user's private key path (probably `/home/deploy/.ssh/id_rsa`)
 
-## Running your tests in Hudson against Engine Yard AppCloud
+## Running your CI tests on Engine Yard AppCloud
 
 This is the exciting part - ensuring that your CI tests are being run in the same environment as your production applications. In this case, on Engine Yard AppCloud.
 
@@ -85,10 +77,10 @@ Boot your `ci_demo_app_ci` environment, visit your Hudson CI and WOW! jobs have 
 
 At any time from the command line you can use `hudson list` to see the status of your jobs
 
-### Conventions/Requirements
+## Conventions/Requirements
 
 * Do not use your production environment as your Hudson CI slave. There are no guarantees what will happen. I expect bad things.
-* You must name your CI environment with a suffix of `_ci` or `_hudson_slave`.
+* You must name your CI environments with a suffix of `_ci` or `_hudson_slave`.
 * You should not name any other environments with a suffix of `_ci` or `_hudson_slave`; lest they offer themselves to your Hudson CI as slave nodes.
 * Keep your production and CI environments exactly the same. Use the same Ruby implementation/version, same database, and include the same RubyGems and Unix packages. Why? This is the entire point of the exercise: to run your CI tests in the same environment as your production application runs.
 
@@ -96,7 +88,7 @@ For example, note the naming convention of the two CI environments below (one en
 
 <img src="http://img.skitch.com/20101031-dxnk7hbn32yce9rum1ctwjwt1w.png" style="width: 100%">
 
-### What happens?
+## What happens?
 
 When you boot your Engine Yard AppCloud CI environments, each resulting EC2 instance executes a special "hudson_slave" recipe (see `cookbooks/hudson_slave/recipes/default.rb` in your project). This does three things:
 
