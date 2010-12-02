@@ -57,7 +57,6 @@ if ['solo'].include?(node[:instance_role])
       :home => hudson_home,
       :pid  => hudson_pid
     )
-    not_if { FileTest.exists?("/etc/init.d/hudson") }
   end
 
   plugins.each do |plugin|
@@ -78,7 +77,6 @@ if ['solo'].include?(node[:instance_role])
     variables(
       :port => hudson_port
     )
-    not_if { FileTest.exists?("/data/nginx/servers/hudson_reverse_proxy.conf") }
   end
 
   execute "ensure-hudson-is-running" do
