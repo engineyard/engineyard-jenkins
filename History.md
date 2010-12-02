@@ -2,6 +2,7 @@
 
 * install_server
   * Updates the default host for `hudson` CLI to newly created server
+  * Explicitly set $HOME/$USER so Hudson/Java has access to .gitconfig
 
 ## 0.3.0 - 2010-11-24
 
