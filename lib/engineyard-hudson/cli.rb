@@ -9,7 +9,7 @@ module Engineyard
       desc "install PROJECT_PATH", "Install Hudson node/slave recipes into your project."
       def install(project_path)
         require 'engineyard-hudson/cli/install'
-        Engineyard::Hudson::Install.start(ARGV[1..-1])
+        Engineyard::Hudson::Install.start(project_path)
       end
       
       desc "install_server [PROJECT_PATH]", "Install Hudson CI into an AppCloud environment."
