@@ -20,7 +20,7 @@ This will also install the `hudson` CLI to interact with your Hudson CI from the
 
 ## Hosting on Engine Yard AppCloud
 
-Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/engineyard/hudson_server.git`, and add your own SSH keys. This will create an environment called `hudson_server_production`. Boot the environment as a Single instance (or Custom cluster with a single instance). 
+Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/engineyard/hudson_server.git` (options: rails 3, passenger), and add your own SSH keys. This will create an environment called `hudson_server_production`. Boot the environment as a Single instance (or Custom cluster with a single instance). 
 
 Optionally, though it is quite pretty, deploy/ship the hudson_server application and visit the HTTP link to see the remaining "Almost there..." instructions.
 
