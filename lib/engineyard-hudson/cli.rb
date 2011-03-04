@@ -35,7 +35,7 @@ module Engineyard
         shell.say "Temp installation dir: #{temp_project_path}" if options[:verbose]
         
         FileUtils.mkdir_p(temp_project_path)
-        FileUtils.chdir(FileUtils.mkdir_p(temp_project_path)) do
+        FileUtils.chdir(temp_project_path) do
           # 'install_server' generator
           require 'engineyard-hudson/cli/install_server'
           Engineyard::Hudson::InstallServer.start(ARGV.unshift(temp_project_path))
