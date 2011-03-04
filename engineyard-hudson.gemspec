@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "engineyard-hudson"
-  s.version     = '0.3.1'
+  s.version     = '0.3.2'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Dr Nic Williams"]
   s.email       = ["drnicwilliams@gmail.com"]
@@ -30,5 +30,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency("open4")
   s.add_development_dependency("sinatra")
   s.add_development_dependency("fakeweb", "~>1.3.0")
-  s.add_dependency("ruby-debug")
 end

@@ -1,5 +1,9 @@
 # History
 
+## 0.3.2 - 2011-3-3
+
+* remove dependency on ruby-debug
+
 ## 0.3.1 - 2010-12-1
 
 * install_server
