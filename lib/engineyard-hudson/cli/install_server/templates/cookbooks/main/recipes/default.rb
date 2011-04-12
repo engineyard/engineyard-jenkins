@@ -1,1 +1,0 @@
-require_recipe 'hudson_master'

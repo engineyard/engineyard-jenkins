@@ -1,0 +1,1 @@
+require_recipe 'jenkins_master'

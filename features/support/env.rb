@@ -1,6 +1,6 @@
 $:.unshift(File.expand_path(File.dirname(__FILE__) + '/../../lib'))
 require 'bundler/setup'
-require 'engineyard-hudson'
+require 'engineyard-jenkins'
 
 Before do
   @tmp_root      = File.dirname(__FILE__) + "/../../tmp"

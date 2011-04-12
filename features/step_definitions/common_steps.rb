@@ -44,12 +44,12 @@ When /^I run project executable "(.*)" with arguments "(.*)"/ do |executable, ar
 end
 
 When /^I run local executable "(.*)" with arguments "(.*)"/ do |executable, arguments|
-  if executable == "ey-hudson"
-    require 'engineyard-hudson'
-    require 'engineyard-hudson/cli'
+  if executable == "ey-jenkins"
+    require 'engineyard-jenkins'
+    require 'engineyard-jenkins/cli'
     in_project_folder do
       stdout, stderr = capture_stdios do
-        Engineyard::Hudson::CLI.start(arguments.split(/ /))
+        Engineyard::Jenkins::CLI.start(arguments.split(/ /))
       end
       @stdout = File.expand_path(File.join(@tmp_root, "executable.out"))
       File.open(@stdout, "w") {|f| f << stdout; f << stderr}
@@ -206,6 +206,6 @@ When /^I create a new node with the following options on "http:\/\/(.+?):(\d+)":
     options
   end
 
-  Hudson::Api.setup_base_url(:host => host, :port => port.to_i)
-  Hudson::Api.add_node(options)
+  Jenkins::Api.setup_base_url(:host => host, :port => port.to_i)
+  Jenkins::Api.add_node(options)
 end
