@@ -9,7 +9,7 @@ module Engineyard
       desc "install PROJECT_PATH", "Install Jenkins node/slave recipes into your project."
       def install(project_path)
         require 'engineyard-jenkins/cli/install_generator'
-        Engineyard::Jenkins::InstallGenerator.start(project_path)
+        Engineyard::Jenkins::InstallGenerator.start(ARGV.unshift(project_path))
       end
       
       desc "install_server [PROJECT_PATH]", "Install Jenkins CI into an AppCloud environment."
