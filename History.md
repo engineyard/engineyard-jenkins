@@ -1,5 +1,10 @@
 # History
 
+## 0.4.0 - 2011-4-11
+
+* Rename to engineyard-jenkins
+* Fix bug in "ey-jenkins install ." wiring into Thor
+
 ## 0.3.2 - 2011-3-3
 
 * remove dependency on ruby-debug
