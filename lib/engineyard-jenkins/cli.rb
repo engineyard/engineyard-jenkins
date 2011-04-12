@@ -8,8 +8,8 @@ module Engineyard
 
       desc "install PROJECT_PATH", "Install Jenkins node/slave recipes into your project."
       def install(project_path)
-        require 'engineyard-jenkins/cli/install'
-        Engineyard::Jenkins::Install.start(project_path)
+        require 'engineyard-jenkins/cli/install_generator'
+        Engineyard::Jenkins::InstallGenerator.start(project_path)
       end
       
       desc "install_server [PROJECT_PATH]", "Install Jenkins CI into an AppCloud environment."
@@ -37,8 +37,8 @@ module Engineyard
         FileUtils.mkdir_p(temp_project_path)
         FileUtils.chdir(temp_project_path) do
           # 'install_server' generator
-          require 'engineyard-jenkins/cli/install_server'
-          Engineyard::Jenkins::InstallServer.start(ARGV.unshift(temp_project_path))
+          require 'engineyard-jenkins/cli/install_server_generator'
+          Engineyard::Jenkins::InstallServerGenerator.start(ARGV.unshift(temp_project_path))
 
           say ""
           say "Uploading to "; say "'#{env_name}' ", :yellow; say "environment on "; say "'#{account_name}' ", :yellow; say "account..."

@@ -2,13 +2,13 @@ require 'thor/group'
 
 module Engineyard
   module Jenkins
-    class Install < Thor::Group
+    class InstallGenerator < Thor::Group
       include Thor::Actions
       
       argument :project_path
       
       def self.source_root
-        File.join(File.dirname(__FILE__), "install", "templates")
+        File.join(File.dirname(__FILE__), "install_generator", "templates")
       end
       
       def install_cookbooks
