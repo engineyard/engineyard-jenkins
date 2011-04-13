@@ -4,4 +4,14 @@ $:.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'engineyard-jenkins'
 require 'engineyard-jenkins/cli'
 
-Engineyard::Jenkins::CLI.start
+begin
+  Engineyard::Jenkins::CLI.start
+rescue EY::Error => e
+  EY.ui.print_exception(e)
+  exit(1)
+rescue Interrupt => e
+  puts
+  EY.ui.print_exception(e)
+  EY.ui.say("Quitting...")
+  exit(1)
+end
