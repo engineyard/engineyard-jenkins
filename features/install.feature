@@ -1,13 +1,24 @@
 Feature: Managing a rails project as a Jenkins CI job on AppCloud
   I want to build/test my project in the same environment I run in Engine Yard AppCloud
+
+  Scenario: Fail to setup Jenkins slave if no default Jenkins server
+    Given I am in the "rails" project folder
+    When I run local executable "ey-jenkins" with arguments "install ."
+    Then I should see exactly
+      """
+      USAGE: ey-jenkins install . --host HOST --port PORT
+      
+      HOST:PORT default to current jenkins CLI host (set by 'jenkins list --host HOST')
+      """
   
   Scenario: Setup first project as a slave for Jenkins
     Given I am in the "rails" project folder
-    When I run local executable "ey-jenkins" with arguments "install ."
+    When I run local executable "ey-jenkins" with arguments "install . --host ci.mycompany.com"
     Then file "cookbooks/jenkins_slave/attributes/default.rb" is created
     And file "cookbooks/jenkins_slave/recipes/default.rb" is created
     And file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/main/libraries/ruby_block.rb" is created
+    And file "cookbooks/jenkins_slave/attributes/default.rb" contains "ci.mycompany.com"
     And I should see exactly
       """
             create  cookbooks
@@ -29,6 +40,7 @@ Feature: Managing a rails project as a Jenkins CI job on AppCloud
   
   Scenario: Setup project with existing cookbooks as a slave for Jenkins
     Given I am in the "rails" project folder
+    And I run local executable "jenkins" with arguments "list --host ci.mycompany.com"
     And I already have cookbooks installed
     When I run local executable "ey-jenkins" with arguments "install ."
     Then file "cookbooks/jenkins_slave/attributes/default.rb" is created

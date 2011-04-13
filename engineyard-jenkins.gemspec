@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency("thor", ["~> 0.14.6"])
   s.add_dependency("engineyard", ["~> 1.3.17"])
-  s.add_dependency("jenkins", ["~> 0.6.2"])
+  s.add_dependency("jenkins", ["~> 0.6.4"])
 
   s.add_development_dependency("rake", ["~> 0.8.7"])
   s.add_development_dependency("cucumber", ["~> 0.9.4"])

@@ -7,9 +7,20 @@ module Engineyard
     class CLI < Thor
 
       desc "install PROJECT_PATH", "Install Jenkins node/slave recipes into your project."
+      method_option :host, :aliases => ['-h'], :desc => "Override Jenkins CI server host"
+      method_option :port, :aliases => ['-p'], :desc => "Override Jenkins CI server port"
       def install(project_path)
-        require 'engineyard-jenkins/cli/install_generator'
-        Engineyard::Jenkins::InstallGenerator.start(ARGV.unshift(project_path))
+        host, port = host_port(options)
+        unless host && port
+          say "USAGE: ey-jenkins install . --host HOST --port PORT", :red
+          say ""
+          say "HOST:PORT default to current jenkins CLI host (set by 'jenkins list --host HOST')"
+        else
+        
+        
+          require 'engineyard-jenkins/cli/install_generator'
+          Engineyard::Jenkins::InstallGenerator.start(ARGV.unshift(project_path, host, port))
+        end
       end
       
       desc "install_server [PROJECT_PATH]", "Install Jenkins CI into an AppCloud environment."
@@ -94,6 +105,13 @@ module Engineyard
       def error(text)
         shell.say "ERROR: #{text}", :red
         exit
+      end
+      
+      # Returns the [host, port] for the target Jenkins CI server
+      def host_port(options)
+        host = options["host"]
+        port = options["port"] || '80'
+        [host, port]
       end
       
       def no_environments_discovered

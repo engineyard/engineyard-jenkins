@@ -6,6 +6,8 @@ module Engineyard
       include Thor::Actions
       
       argument :project_path
+      argument :host
+      argument :port
       
       def self.source_root
         File.join(File.dirname(__FILE__), "install_generator", "templates")
