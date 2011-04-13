@@ -20,9 +20,9 @@ This will also install the `jenkins` CLI to interact with your Jenkins CI from t
 
 ## Hosting on Engine Yard AppCloud
 
-Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/engineyard/jenkins_server.git` (options: rails 3, passenger), and add your own SSH keys. This will create an environment called `jenkins_server_production`. Boot the environment as a Single instance (or Custom cluster with a single instance). 
+Using Engine Yard AppCloud "Quick Start" wizard, create an application with Git Repo `git://github.com/engineyard/jenkins_holding_page.git` (options: rails 3, passenger), and add your own SSH keys. This will create an environment called `jenkins_server_production`. Boot the environment as a Single instance (or Custom cluster with a single instance). 
 
-Optionally, though it is quite pretty, deploy/ship the jenkins_server application and visit the HTTP link to see the remaining "Almost there..." instructions.
+Optionally, though it is quite pretty, deploy/ship the `jenkins_holding_page` application and visit the HTTP link to see the remaining "Almost there..." instructions.
 
 Finally, install Jenkins CI and rebuild the environment:
 
