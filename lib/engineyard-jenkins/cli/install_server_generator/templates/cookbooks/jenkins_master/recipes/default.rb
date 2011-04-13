@@ -40,7 +40,7 @@ if ['solo'].include?(node[:instance_role])
   end
 
   remote_file "#{jenkins_home}/jenkins.war" do
-    source "http://jenkins-ci.org/latest/jenkins.war"
+    source "http://mirrors.jenkins-ci.org/war/latest/jenkins.war"
     owner jenkins_user
     group jenkins_user
     not_if { FileTest.exists?("#{jenkins_home}/jenkins.war") }
