@@ -12,3 +12,10 @@ Given /^I have public key "([^"]*)" on host "([^"]*)"$/ do |public_key_value, ho
   File.open(mock_target, "w") { |file| file << public_key_value }
 end
 
+Given /^I set "([^"]*)" as the default Jenkins server$/ do |host|
+  require "jenkins"
+  require "jenkins/config"
+  Jenkins::Api.setup_base_url(:host => host, :port => 80)
+  Jenkins::Api.send(:cache_base_uri)
+end
+

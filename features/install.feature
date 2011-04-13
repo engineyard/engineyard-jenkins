@@ -41,13 +41,15 @@ Feature: Managing a rails project as a Jenkins CI job on AppCloud
   
   Scenario: Setup project with existing cookbooks as a slave for Jenkins
     Given I am in the "rails" project folder
-    And I run local executable "jenkins" with arguments "list --host ci.mycompany.com"
+    And I set "ci.mycompany.com" as the default Jenkins server
+    And I have public key "PUBLIC_KEY" on host "ci.mycompany.com"
     And I already have cookbooks installed
     When I run local executable "ey-jenkins" with arguments "install ."
     Then file "cookbooks/jenkins_slave/attributes/default.rb" is created
     And file "cookbooks/jenkins_slave/recipes/default.rb" is created
     And file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/redis/recipes/default.rb" is created
+    And file "cookbooks/jenkins_slave/attributes/default.rb" contains "ci.mycompany.com"
     And I should see exactly
       """
             create  cookbooks/jenkins_slave/attributes/default.rb

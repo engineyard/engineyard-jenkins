@@ -112,8 +112,15 @@ module Engineyard
       
       # Returns the [host, port] for the target Jenkins CI server
       def host_port(options)
-        host = options["host"]
-        port = options["port"] || '80'
+        require "jenkins"
+        require "jenkins/config"
+        if base_uri = ::Jenkins::Config.config['base_uri']
+          uri = URI.parse(::Jenkins::Config.config['base_uri'])
+          host = uri.host
+          port = uri.port
+        end
+        host = options["host"] if options["host"]
+        port = options["port"] || port || '80'
         [host, port]
       end
       
