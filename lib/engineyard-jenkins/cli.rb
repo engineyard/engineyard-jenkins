@@ -45,7 +45,7 @@ module Engineyard
           require 'engineyard/cli/recipes'
           environment.upload_recipes
           
-          if status == "running"
+          if status == "running" || status == "error"
             say "Environment is rebuilding..."
             environment.run_custom_recipes
             watch_page_while public_hostname, 80, "/" do |req|
