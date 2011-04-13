@@ -7,3 +7,8 @@ Given /^I want to fake out the boot sequence of Jenkins$/ do
   ])
 end
 
+Given /^I have public key "([^"]*)" on host "([^"]*)"$/ do |public_key_value, host|
+  mock_target = File.expand_path("../../../tmp/scp_mock", __FILE__)
+  File.open(mock_target, "w") { |file| file << public_key_value }
+end
+

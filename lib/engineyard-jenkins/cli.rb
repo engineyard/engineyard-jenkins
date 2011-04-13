@@ -16,10 +16,13 @@ module Engineyard
           say ""
           say "HOST:PORT default to current jenkins CLI host (set by 'jenkins list --host HOST')"
         else
-        
+          tmp_file   = File.join(Dir.tmpdir, "server_pub_key")
+          user       = "deploy"
+          `scp #{user}@#{host}:~/.ssh/id_rsa.pub #{tmp_file}` # stubbed in fixtures/bin/scp
+          public_key = File.read(tmp_file)
         
           require 'engineyard-jenkins/cli/install_generator'
-          Engineyard::Jenkins::InstallGenerator.start(ARGV.unshift(project_path, host, port))
+          Engineyard::Jenkins::InstallGenerator.start(ARGV.unshift(project_path, host, port, public_key))
         end
       end
       

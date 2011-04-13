@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+
+mock_target = File.expand_path("../../../tmp/scp_mock", __FILE__)
+FileUtils.cp_r(mock_target, ARGV[-1])

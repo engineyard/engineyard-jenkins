@@ -8,6 +8,7 @@ module Engineyard
       argument :project_path
       argument :host
       argument :port
+      argument :public_key
       
       def self.source_root
         File.join(File.dirname(__FILE__), "install_generator", "templates")

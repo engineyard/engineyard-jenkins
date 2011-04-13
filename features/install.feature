@@ -13,6 +13,7 @@ Feature: Managing a rails project as a Jenkins CI job on AppCloud
   
   Scenario: Setup first project as a slave for Jenkins
     Given I am in the "rails" project folder
+    And I have public key "PUBLIC_KEY" on host "ci.mycompany.com"
     When I run local executable "ey-jenkins" with arguments "install . --host ci.mycompany.com"
     Then file "cookbooks/jenkins_slave/attributes/default.rb" is created
     And file "cookbooks/jenkins_slave/recipes/default.rb" is created
