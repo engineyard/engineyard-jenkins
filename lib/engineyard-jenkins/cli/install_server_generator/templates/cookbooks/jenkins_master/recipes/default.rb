@@ -59,14 +59,17 @@ if ['solo'].include?(node[:instance_role])
     )
   end
 
-  # plugins.each do |plugin|
-  #   remote_file "#{jenkins_home}/plugins/#{plugin}.hpi" do
-  #     source "http://jenkins-ci.org/latest/#{plugin}.hpi"
-  #     owner jenkins_user
-  #     group jenkins_user
-  #     not_if { FileTest.exists?("#{jenkins_home}/plugins/#{plugin}.hpi") }
-  #   end
-  # end
+  plugins.each do |plugin_version| # 'git-1.2.3'
+    plugin, version = plugin_version.split(/-/)
+    if version
+      remote_file "#{jenkins_home}/plugins/#{plugin}.hpi" do
+        source "http://mirrors.jenkins-ci.org/plugins/#{plugin}/#{version}/#{plugin}.hpi"
+        owner jenkins_user
+        group jenkins_user
+        not_if { FileTest.exists?("#{jenkins_home}/plugins/#{plugin}.hpi") }
+      end
+    end
+  end
 
   template "/data/nginx/servers/jenkins_reverse_proxy.conf" do
     source "proxy.conf.erb"

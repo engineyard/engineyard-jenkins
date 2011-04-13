@@ -42,7 +42,9 @@ module Engineyard
       # Currently the engineyard gem has badly formed URLs in its same data
       # This method cleans app_master_hostname.compute-1.amazonaws.com -> app-master-hostname.compute-1.amazonaws.com
       def clean_host_name(environment)
-        environment.instances.first.public_hostname.gsub!(/_/,'-') if environment.instances.first
+        if environment.instances.first && environment.instances.first.public_hostname
+          environment.instances.first.public_hostname.gsub!(/_/,'-')
+        end
       end
     end
   end
