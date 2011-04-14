@@ -73,7 +73,8 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|jenk
             c.envfile       = "/data/#{app_name}/shared/config/git-env"
             c.steps         = [
               [:build_shell_step, "bundle install"],
-              [:build_ruby_step, <<-RUBY.gsub(/^            /, '')],
+              [:build_ruby_step, <<-RUBY.gsub(/^                /, '')],
+                require "fileutils"
                 appcloud_database = "/data/#{app_name}/shared/config/database.yml"
                 FileUtils.cp appcloud_database, "config/database.yml"
                 RUBY
