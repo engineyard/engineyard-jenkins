@@ -1,5 +1,12 @@
 # History
 
+## 0.5.0 - 2011-4-13
+
+Command 'install':
+
+* Can specify alternate host or use default from "jenkins" CLI
+* Pulls master public key via scp
+
 ## 0.4.0 - 2011-4-11
 
 * Rename to engineyard-jenkins
