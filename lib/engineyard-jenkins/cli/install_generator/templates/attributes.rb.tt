@@ -7,7 +7,7 @@ jenkins_slave({
   :master => {
     :host => <%= host.inspect %>,
     :port => <%= port %>,
-    :public_key => <%= public_key.inspect %>,
+    :public_key => <%= public_key.strip.inspect %>,
     :master_key_location => "/home/deploy/.ssh/id_rsa"
   },
   :gem => {
