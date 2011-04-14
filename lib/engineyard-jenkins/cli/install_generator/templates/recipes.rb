@@ -14,7 +14,7 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|jenk
 
   execute "install_jenkins_in_resin" do
     command "/usr/local/ey_resin/ruby/bin/gem install #{node[:jenkins_slave][:gem][:install]}"
-    not_if { FileTest.directory?("/usr/local/ey_resin/ruby/gems/1.8/gems/#{node[:jenkins_slave][:gem][:version]}") }
+    # not_if { FileTest.directory?("/usr/local/ey_resin/ruby/gems/1.8/gems/#{node[:jenkins_slave][:gem][:version]}") }
   end
   
   ruby_block "authorize_jenkins_master_key" do

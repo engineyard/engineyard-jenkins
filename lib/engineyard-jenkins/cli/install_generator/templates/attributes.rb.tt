@@ -11,7 +11,6 @@ jenkins_slave({
     :master_key_location => "/home/deploy/.ssh/id_rsa"
   },
   :gem => {
-    :install => "jenkins",
-    :version => "jenkins-0.6.4"
+    :install => "jenkins"
   }
 })
