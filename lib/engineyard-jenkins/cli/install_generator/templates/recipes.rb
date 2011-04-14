@@ -49,7 +49,7 @@ if ['solo','app_master'].include?(node[:instance_role]) && env_name =~ /(ci|jenk
         :slave_host  => node[:engineyard][:environment][:instances].first[:public_hostname],
         :slave_user  => username,
         :executors   => [node[:applications].size, 1].max,
-        :label       => node[:applications].keys.join(" ")
+        :labels      => node[:applications].keys.join(" ")
       )
     end
     action :create
