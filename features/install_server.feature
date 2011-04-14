@@ -10,7 +10,7 @@ Feature: Managing ey jenkins server
     When I run local executable "ey-jenkins" with arguments "install_server . --account account_2 --environment giblets"
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/jenkins_master/recipes/default.rb" is created
-    And file "cookbooks/jenkins_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs envfile]"
+    And file "cookbooks/jenkins_master/attributes/default.rb" contains ":plugins => %w[git-1.1.6 github-0.4 rake-1.7.6 ruby-1.2 greenballs-1.10 envfile-1.1]"
     And I should see exactly
       """
             create  cookbooks
@@ -36,10 +36,10 @@ Feature: Managing ey jenkins server
   
   @wip
   Scenario: Install Jenkins CI server with additional Jenkins plugins
-    When I run local executable "ey-jenkins" with arguments "install_server . -p ' chucknorris , googleanalytics ' -c account_2 -e giblets"
+    When I run local executable "ey-jenkins" with arguments "install_server . -p ' chucknorris-1.2.3 , googleanalytics-1.2.3 ' -c account_2 -e giblets"
     Then file "cookbooks/main/recipes/default.rb" is created
     And file "cookbooks/jenkins_master/recipes/default.rb" is created
-    And file "cookbooks/jenkins_master/attributes/default.rb" contains ":plugins => %w[git github rake ruby greenballs envfile chucknorris googleanalytics]"
+    And file "cookbooks/jenkins_master/attributes/default.rb" contains ":plugins => %w[git-1.1.6 github-0.4 rake-1.7.6 ruby-1.2 greenballs-1.10 envfile-1.1 chucknorris-1.2.3 googleanalytics-1.2.3]"
 
   Scenario: Display example explicit calls if multiple accounts/options
     When I run local executable "ey-jenkins" with arguments "install_server . -e giblets"
