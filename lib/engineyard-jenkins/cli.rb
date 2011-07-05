@@ -57,8 +57,8 @@ module Engineyard
           say ""
           say "Uploading to "; say "'#{env_name}' ", :yellow; say "environment on "; say "'#{account_name}' ", :yellow; say "account..."
           require 'engineyard/cli/recipes'
-          environment.upload_recipes
-          
+          environment.tar_and_upload_recipes_in_cookbooks_dir
+
           if status == "running" || status == "error"
             say "Environment is rebuilding..."
             environment.run_custom_recipes
