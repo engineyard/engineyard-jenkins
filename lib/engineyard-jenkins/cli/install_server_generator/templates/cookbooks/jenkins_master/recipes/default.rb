@@ -20,7 +20,7 @@ plugins     = node[:jenkins_master][:plugins]
 
 if ['solo'].include?(node[:instance_role])
   gem_package "bundler" do
-    source "http://gemcutter.org"
+    version '1.0.21'
     action :install
   end
 
