@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This project is deprecated in favour of [eycloud-app-jenkins](https://github.com/engineyard/eycloud-app-jenkins/).
+
 # Easier to do CI than not to.
 
 Run your continuous integration (CI) tests against your Engine Yard AppCloud environments - the exact same configuration you are using in production!
